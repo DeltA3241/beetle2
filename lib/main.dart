@@ -1,7 +1,7 @@
-import 'package:beetle/disease_detection/disease_detedtion_main.dart';
+import 'package:beetle/driver.dart';
 import 'package:beetle/login/login.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:beetle/utilities/constants.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: kAppBarTheme,
       ),
-      initialRoute: kMainpages[1],
+      initialRoute: kMainpages[0],
       routes: {
-        kMainpages[5]: ((context) => const LoginPage()),
-        kMainpages[0]: ((context) => const DiseaseDetectionMain()),
+        kMainpages[1]: (context) => const Driver(),
+        kMainpages[0]: (context) => const LoginPage(),
       },
     );
   }

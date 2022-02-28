@@ -15,12 +15,8 @@ const TextStyle kAppBarTextStyle = TextStyle(
 );
 
 const List<String> kMainpages = [
-  'diseaseDetectionPage',
-  'ecommercePage',
-  'forumPage',
-  'settingsPage',
-  'profilePage',
   '/',
+  '/driver',
 ];
 
 LoginTheme kLoginTheme = LoginTheme(

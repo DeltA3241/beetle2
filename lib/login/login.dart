@@ -1,4 +1,4 @@
-import 'package:beetle/constants.dart';
+import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 
@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
       onRecoverPassword: (String email) {},
       onSignup: (SignupData signupdata) {},
       onSubmitAnimationCompleted: () {
-        Navigator.pushNamed(context, kMainpages[0]);
+        Navigator.pushNamed(context, kMainpages[1]);
       },
       messages: kLoginMessages,
     );
