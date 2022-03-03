@@ -1,40 +1,25 @@
+import 'package:beetle/forum/custom_widgets/search_bar.dart';
+import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets/forum_card.dart';
 
-class ForumMain extends StatelessWidget {
+class ForumMain extends StatefulWidget {
   const ForumMain({Key? key}) : super(key: key);
+
+  @override
+  State<ForumMain> createState() => _ForumMainState();
+}
+
+class _ForumMainState extends State<ForumMain> {
+  double height = 5;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 20,
-            left: 10,
-            right: 10,
-            bottom: 10,
-          ),
-          child: TextField(
-            decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.orange),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              labelStyle: const TextStyle(color: Colors.orange),
-              constraints:
-                  BoxConstraints.tight(const Size(double.infinity, 40)),
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.orange,
-              ),
-              labelText: 'Search Post / پوسٹ تلاش کریں',
-              focusColor: Colors.orange,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-          ),
+        const Padding(
+          padding: kpaddingSearchBar,
+          child: SearchBar(label: 'Search Post / پوسٹ تلاش کریں'),
         ),
         Expanded(
           child: ListView(

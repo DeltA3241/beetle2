@@ -36,6 +36,13 @@ const List<String> kMainpages = [
   '/driver',
 ];
 
+const EdgeInsets kpaddingSearchBar = EdgeInsets.only(
+  top: 20,
+  left: 10,
+  right: 10,
+  bottom: 10,
+);
+
 LoginTheme kLoginTheme = LoginTheme(
   footerBackgroundColor: Colors.orange,
   primaryColor: Colors.orange,
