@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Beetle',
       theme: ThemeData(
         primaryColor: Colors.white,
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute: kMainpages[0],
       routes: {
         kMainpages[1]: (context) => const Driver(),
-        kMainpages[0]: (context) => const LoginPage(),
+        kMainpages[0]: (context) => LoginPage(),
       },
     );
   }

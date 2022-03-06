@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 
+const baseUrl = 'http://7dbb-203-82-53-188.ngrok.io/auth';
+
 BorderRadius kBorderRadiusForumCards = BorderRadius.circular(20);
 BoxDecoration kForumCardDecoration = BoxDecoration(
   color: Colors.orangeAccent,

@@ -60,6 +60,7 @@ class ForumCard extends StatelessWidget {
                   flex: 1,
                   child: Image(
                     image: kBeetleFullLogo,
+                    fit: BoxFit.contain,
                   ),
                 )
               ],

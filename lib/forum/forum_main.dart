@@ -11,8 +11,6 @@ class ForumMain extends StatefulWidget {
 }
 
 class _ForumMainState extends State<ForumMain> {
-  double height = 5;
-
   @override
   Widget build(BuildContext context) {
     return Column(

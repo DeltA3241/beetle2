@@ -1,3 +1,4 @@
+import 'package:beetle/forum/delegate_forum_post/delegate_forum_post.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,20 @@ class ForumPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: kBeetleAppBar,
-      body: const Center(child: Text('data')),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: DelegateForumPost(),
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: DelegateForumPost(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
