@@ -1,4 +1,5 @@
 import 'package:beetle/forum/custom_widgets/search_bar.dart';
+import 'package:beetle/forum/delegate_forum/delegate_forum_main.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets/forum_card.dart';
@@ -13,16 +14,15 @@ class ForumMain extends StatefulWidget {
 class _ForumMainState extends State<ForumMain> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: kpaddingSearchBar,
-          child: SearchBar(label: 'Search Post / پوسٹ تلاش کریں'),
+    return CustomScrollView(
+      slivers: [
+        SliverPersistentHeader(
+          floating: true,
+          delegate: DelegateForumMain(),
         ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 20,
-            itemBuilder: (BuildContext context, int index) {
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
               return const ForumCard(
                 title: 'Title/عنوان',
                 imageIsAvailable: true,
@@ -30,6 +30,7 @@ class _ForumMainState extends State<ForumMain> {
                     'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
               );
             },
+            childCount: 20,
           ),
         ),
       ],

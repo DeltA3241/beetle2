@@ -23,6 +23,8 @@ class SearchBar extends StatelessWidget {
           Icons.search,
           color: Colors.orange,
         ),
+        filled: true,
+        fillColor: Colors.white,
         labelText: label,
         focusColor: Colors.orange,
         border: OutlineInputBorder(

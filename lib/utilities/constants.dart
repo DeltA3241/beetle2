@@ -8,6 +8,10 @@ BoxDecoration kForumCardDecoration = BoxDecoration(
   color: Colors.orangeAccent,
   borderRadius: kBorderRadiusForumCards,
 );
+BoxDecoration kCommentCardDecoration = BoxDecoration(
+  color: Colors.orange[900],
+  borderRadius: kBorderRadiusForumCards,
+);
 
 const TextStyle kForumTitleTextStyle = TextStyle(
   fontSize: 18,

@@ -1,9 +1,8 @@
-import 'package:beetle/forum/custom_widgets/forum_card.dart';
+import 'package:beetle/forum/custom_widgets/comment_card.dart';
 import 'package:beetle/forum/custom_widgets/search_bar.dart';
-import 'package:beetle/forum/delegate_forum_post/delegate_forum_post.dart';
+import 'package:beetle/forum/delegate_forum/delegate_forum_post.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class ForumPost extends StatelessWidget {
   const ForumPost({Key? key}) : super(key: key);
@@ -27,9 +26,9 @@ class ForumPost extends StatelessWidget {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return const ForumCard(
-                            description: 'description',
-                            title: 'title',
+                        return const CommentCard(
+                            comment: 'comment',
+                            email: 'Email',
                             imageIsAvailable: false);
                       },
                       childCount: 10,
