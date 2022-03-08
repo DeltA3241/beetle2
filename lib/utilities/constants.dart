@@ -100,3 +100,7 @@ AppBar kBeetleAppBar = AppBar(
     ],
   ),
 );
+const BoxConstraints kSizeConstraints = BoxConstraints.tightFor(
+  width: 90.0,
+  height: 90.0,
+);
