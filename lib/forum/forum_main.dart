@@ -20,64 +20,16 @@ class _ForumMainState extends State<ForumMain> {
           child: SearchBar(label: 'Search Post / پوسٹ تلاش کریں'),
         ),
         Expanded(
-          child: ListView(
-            children: const [
-              ForumCard(
+          child: ListView.builder(
+            itemCount: 20,
+            itemBuilder: (BuildContext context, int index) {
+              return const ForumCard(
                 title: 'Title/عنوان',
+                imageIsAvailable: true,
                 description:
                     'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-              ForumCard(
-                title: 'Title/عنوان',
-                description:
-                    'Description ikjegfLIGflegsiufkg  seiufghilesUGF iesghfIUegsfigfeSIUgu eufghiuesfgh/تم ایک کتیا گدی کے بیٹے بھاڑ میں جاؤ، اپنی ماں کو بھاڑ میں جاؤ',
-              ),
-            ],
+              );
+            },
           ),
         ),
       ],

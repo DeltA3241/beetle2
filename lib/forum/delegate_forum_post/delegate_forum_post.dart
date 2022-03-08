@@ -42,9 +42,9 @@ class DelegateForumPost extends SliverPersistentHeaderDelegate {
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 500),
               opacity: 1 - shrinkOffset / maxExtent,
-              child: Container(
+              child: const SizedBox(
                 width: 350,
-                child: const Text(
+                child: Text(
                   'kegabfkghsfalha oiuawehfioahf hiouehfaiohfioauwhef ahrefoihaae heaiohf aefhoiu',
                   textAlign: TextAlign.start,
                 ),

@@ -7,14 +7,32 @@ class ForumCard extends StatelessWidget {
   final void Function()? onLongPress;
   final String title;
   final String description;
+  final bool imageIsAvailable;
 
   const ForumCard({
     required this.description,
     required this.title,
     this.onLongPress,
     this.onTap,
+    required this.imageIsAvailable,
     Key? key,
   }) : super(key: key);
+
+  Widget imageAttached(bool imageIsAvailable) {
+    if (imageIsAvailable) {
+      return const Expanded(
+        flex: 1,
+        child: Image(
+          image: kBeetleFullLogo,
+          fit: BoxFit.contain,
+        ),
+      );
+    } else {
+      return const SizedBox(
+        width: 2,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +74,7 @@ class ForumCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Expanded(
-                  flex: 1,
-                  child: Image(
-                    image: kBeetleFullLogo,
-                    fit: BoxFit.contain,
-                  ),
-                )
+                imageAttached(imageIsAvailable),
               ],
             ),
           ),
