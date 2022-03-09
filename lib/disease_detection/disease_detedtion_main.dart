@@ -5,8 +5,6 @@ import 'package:beetle/utilities/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import '../custom_widgets/image_picker_tile_bottomsheet.dart';
 
 class DiseaseDetectionMain extends StatefulWidget {

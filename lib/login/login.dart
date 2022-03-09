@@ -5,10 +5,11 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
+  final BeetleNetworking beetleNetworking = BeetleNetworking();
+  late http.Response response;
   LoginPage({
     Key? key,
   }) : super(key: key);
-  bool login = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +20,21 @@ class LoginPage extends StatelessWidget {
       titleTag: 'title_main',
       logo: const AssetImage('assets/images/png_files/Beetle.png'),
       onLogin: (LoginData data) async {
-        // http.Response response =
-        //     await BeetleNetworking().loginUser(data.name, data.password);
-        // if (response.statusCode == 200) {
-        //   return null;
-        // } else {
-        //   return 'check credentials';
-        // }
+        response = await BeetleNetworking().loginUser(data.name, data.password);
+        if (response.statusCode == 200) {
+          return null;
+        } else {
+          return 'check credentials';
+        }
       },
-      onRecoverPassword: (String email) {},
+      onRecoverPassword: (String email) async {
+        response = await beetleNetworking.resetUserPassword(email);
+        if (response.statusCode == 200) {
+          return null;
+        } else {
+          return 'Email Incorrect';
+        }
+      },
       onSignup: (SignupData signupdata) async {
         Map<String, String?> signupDetails = {
           'username': signupdata.name,
@@ -37,13 +44,15 @@ class LoginPage extends StatelessWidget {
           "first_name": signupdata.additionalSignupData!['First Name'],
           "last_name": signupdata.additionalSignupData!['Last Name'],
         };
-        http.Response response =
-            await BeetleNetworking().signupUser(signupDetails);
+        response = await BeetleNetworking().signupUser(signupDetails);
+        if (response.statusCode == 201) {
+          return null;
+        } else {
+          return 'check again';
+        }
       },
       onSubmitAnimationCompleted: () {
-        //if (login) {
         Navigator.pushReplacementNamed(context, kMainpages[1]);
-        //}
       },
       additionalSignupFields: const [
         UserFormField(
