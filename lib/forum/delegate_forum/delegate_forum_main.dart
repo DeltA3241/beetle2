@@ -7,9 +7,13 @@ class DelegateForumMain extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return const Padding(
+    return Padding(
       padding: kpaddingSearchBar,
-      child: SearchBar(label: 'Search Post / پوسٹ تلاش کریں'),
+      child: SearchBar(
+        label: 'Search Post / پوسٹ تلاش کریں',
+        icon: Icons.search,
+        onChanged: (value) {},
+      ),
     );
   }
 

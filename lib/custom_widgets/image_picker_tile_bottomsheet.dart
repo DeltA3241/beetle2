@@ -1,3 +1,4 @@
+import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -30,26 +31,37 @@ class ImagePickerTileBottomSheet extends StatelessWidget {
 
   static Future<dynamic> showSheetAndGetChoice(BuildContext context) {
     return showMaterialModalBottomSheet(
+      backgroundColor: const Color(0x33c7bab9),
       context: context,
       builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ImagePickerTileBottomSheet(
-              text: 'Pick from gallery',
-              icon: Icons.photo,
-              onTap: () {
-                Navigator.of(context).pop(ImageSource.gallery);
-              },
-            ),
-            ImagePickerTileBottomSheet(
-              text: 'Pick from Camera',
-              icon: Icons.photo,
-              onTap: () {
-                Navigator.of(context).pop(ImageSource.camera);
-              },
-            ),
-          ],
+        return Container(
+          margin: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(10),
+          decoration: kForumCardDecoration,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ImagePickerTileBottomSheet(
+                text: 'Pick from gallery',
+                icon: Icons.photo,
+                onTap: () {
+                  Navigator.of(context).pop(ImageSource.gallery);
+                },
+              ),
+              const SizedBox(
+                child: Divider(color: Colors.black),
+              ),
+              ImagePickerTileBottomSheet(
+                text: 'Pick from Camera',
+                icon: Icons.photo,
+                onTap: () {
+                  Navigator.of(context).pop(ImageSource.camera);
+                },
+              ),
+            ],
+          ),
         );
       },
     );

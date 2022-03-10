@@ -1,4 +1,5 @@
 import 'package:beetle/forum/forum_post.dart';
+import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 
@@ -7,7 +8,8 @@ class ForumCard extends StatelessWidget {
   final void Function()? onLongPress;
   final String title;
   final String description;
-  final bool imageIsAvailable;
+  final String imageIsAvailable;
+  final String forumId;
 
   const ForumCard({
     required this.description,
@@ -15,11 +17,12 @@ class ForumCard extends StatelessWidget {
     this.onLongPress,
     this.onTap,
     required this.imageIsAvailable,
+    required this.forumId,
     Key? key,
   }) : super(key: key);
 
-  Widget imageAttached(bool imageIsAvailable) {
-    if (imageIsAvailable) {
+  Widget imageAttached(String imageIsAvailable) {
+    if (imageIsAvailable != 'none') {
       return const Expanded(
         flex: 1,
         child: Image(
@@ -39,11 +42,17 @@ class ForumCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
+          dynamic forumContents =
+              await BeetleNetworking.getForumComents(forumId);
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ForumPost(),
+              builder: (context) => ForumPost(
+                title: title,
+                description: description,
+                forumContent: forumContents,
+              ),
             ),
           );
         },
@@ -69,7 +78,7 @@ class ForumCard extends StatelessWidget {
                         style: kForumTitleTextStyle,
                       ),
                       Flexible(
-                        child: Text(description),
+                        child: Text(description + '\n' + forumId),
                       )
                     ],
                   ),

@@ -1,4 +1,4 @@
-import 'package:beetle/disease_detection/disease_detedtion_main.dart';
+import 'package:beetle/disease_detection/disease_detection_main.dart';
 import 'package:beetle/ecommerce/ecommerce_main.dart';
 import 'package:beetle/forum/forum_main.dart';
 import 'package:beetle/profile/profile_main.dart';

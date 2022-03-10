@@ -79,6 +79,7 @@ LoginMessages kLoginMessages = LoginMessages(
 );
 
 AppBar kBeetleAppBar = AppBar(
+  automaticallyImplyLeading: true,
   title: Row(
     mainAxisAlignment: MainAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
@@ -95,14 +96,21 @@ AppBar kBeetleAppBar = AppBar(
       ),
       const Hero(
         tag: 'title_main',
-        child: Text(
-          'Beetle',
+        child: SizedBox(
+          child: Text(
+            'Beetle',
+          ),
         ),
       )
     ],
   ),
 );
+
 const BoxConstraints kSizeConstraints = BoxConstraints.tightFor(
   width: 90.0,
   height: 90.0,
+);
+const BoxConstraints kSizeConstraintsFloatingButton = BoxConstraints.tightFor(
+  width: 70.0,
+  height: 70.0,
 );

@@ -2,6 +2,13 @@ import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class DelegateForumPost extends SliverPersistentHeaderDelegate {
+  final String title;
+  final String description;
+  DelegateForumPost({
+    required this.title,
+    required this.description,
+  });
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -12,11 +19,11 @@ class DelegateForumPost extends SliverPersistentHeaderDelegate {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          const Positioned(
+          Positioned(
             left: 5,
             top: 5,
             child: Text(
-              'Title',
+              title,
               textAlign: TextAlign.start,
               style: kForumTitleTextStyle,
             ),
@@ -28,8 +35,7 @@ class DelegateForumPost extends SliverPersistentHeaderDelegate {
               duration: const Duration(microseconds: 500),
               opacity: 1 - shrinkOffset / maxExtent,
               child: const Image(
-                image: NetworkImage(
-                    'https://rodaleinstitute.org/wp-content/uploads/IMG_5386-1200x800.jpg'),
+                image: kBeetleFullLogo,
                 fit: BoxFit.contain,
                 width: 350,
                 height: 300,
@@ -42,10 +48,10 @@ class DelegateForumPost extends SliverPersistentHeaderDelegate {
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 500),
               opacity: 1 - shrinkOffset / maxExtent,
-              child: const SizedBox(
+              child: SizedBox(
                 width: 350,
                 child: Text(
-                  'kegabfkghsfalha oiuawehfioahf hiouehfaiohfioauwhef ahrefoihaae heaiohf aefhoiu',
+                  description,
                   textAlign: TextAlign.start,
                 ),
               ),

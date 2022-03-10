@@ -88,12 +88,15 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                 var source =
                     await ImagePickerTileBottomSheet.showSheetAndGetChoice(
                         context);
-
-                final ImagePicker _picker = ImagePicker();
-                image = await _picker.pickImage(source: source);
-                setState(() {
-                  option(image);
-                });
+                if (source != null) {
+                  final ImagePicker _picker = ImagePicker();
+                  image = await _picker.pickImage(source: source);
+                  setState(
+                    () {
+                      option(image);
+                    },
+                  );
+                }
               },
               child: DottedBorder(
                 color: kBeetleMainColor,

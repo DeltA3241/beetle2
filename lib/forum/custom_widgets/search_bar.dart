@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
   final String label;
+  final void Function(String value)? onChanged;
+  final IconData icon;
   const SearchBar({
+    required this.onChanged,
     required this.label,
+    required this.icon,
     Key? key,
   }) : super(key: key);
 
@@ -19,8 +23,8 @@ class SearchBar extends StatelessWidget {
         constraints: BoxConstraints.tight(
           const Size(double.infinity, 40),
         ),
-        prefixIcon: const Icon(
-          Icons.search,
+        prefixIcon: Icon(
+          icon,
           color: Colors.orange,
         ),
         filled: true,
@@ -31,6 +35,7 @@ class SearchBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
+      onChanged: onChanged,
     );
   }
 }

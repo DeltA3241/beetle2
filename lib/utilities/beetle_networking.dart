@@ -51,6 +51,16 @@ class BeetleNetworking {
     }
   }
 
+  static Future<dynamic> getForumComents(String forumId) async {
+    http.Response response =
+        await http.get(Uri.parse('$kBaseUrlForum/forums/$forumId'));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return 'error';
+    }
+  }
+
   String basicAuth(String username, String password) {
     String basicAuth = 'Basic ' +
         base64Encode(

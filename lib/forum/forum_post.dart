@@ -5,7 +5,15 @@ import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class ForumPost extends StatelessWidget {
-  const ForumPost({Key? key}) : super(key: key);
+  final dynamic forumContent;
+  final String title;
+  final String description;
+  const ForumPost({
+    Key? key,
+    required this.forumContent,
+    required this.description,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +29,38 @@ class ForumPost extends StatelessWidget {
                   SliverPersistentHeader(
                     pinned: false,
                     floating: true,
-                    delegate: DelegateForumPost(),
+                    delegate: DelegateForumPost(
+                      title: title,
+                      description: description,
+                    ),
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return const CommentCard(
-                            comment: 'comment',
-                            email: 'Email',
-                            imageIsAvailable: false);
+                        return CommentCard(
+                          comment: forumContent['comments'][index]['text'],
+                          email: forumContent['comments'][index]['image'],
+                          imageIsAvailable: true,
+                        );
                       },
-                      childCount: 10,
+                      childCount: forumContent['comments'].length,
                     ),
                   )
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 bottom: 10,
                 left: 10,
                 right: 10,
                 top: 10,
               ),
-              child: SearchBar(label: 'send text'),
+              child: SearchBar(
+                label: 'send text',
+                icon: Icons.message_outlined,
+                onChanged: (value) {},
+              ),
             ),
           ],
         ),
