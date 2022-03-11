@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:http/http.dart' as http;
+import 'package:beetle/globals.dart' as global;
 
 class LoginPage extends StatelessWidget {
   final BeetleNetworking beetleNetworking = BeetleNetworking();
@@ -22,6 +25,10 @@ class LoginPage extends StatelessWidget {
       onLogin: (LoginData data) async {
         response = await BeetleNetworking().loginUser(data.name, data.password);
         if (response.statusCode == 200) {
+          dynamic credentials = jsonDecode(response.body);
+          global.password = data.password;
+          global.username = credentials['username'];
+          global.userId = credentials['id'];
           return null;
         } else {
           return 'check credentials';
@@ -46,9 +53,9 @@ class LoginPage extends StatelessWidget {
         };
         response = await BeetleNetworking().signupUser(signupDetails);
         if (response.statusCode == 201) {
-          return null;
+          return 'Account Created';
         } else {
-          return 'check again';
+          return 'Try Again';
         }
       },
       onSubmitAnimationCompleted: () {

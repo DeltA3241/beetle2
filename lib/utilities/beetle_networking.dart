@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:beetle/utilities/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:beetle/globals.dart' as global;
 
 class BeetleNetworking {
   Future<http.Response> signupUser(Map<String, String?> signupData) async {
@@ -11,6 +12,19 @@ class BeetleNetworking {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(signupData),
+    );
+    return response;
+  }
+
+  Future<http.Response> createForum(Map<String, dynamic> forumData) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.post(
+      Uri.parse('$kBaseUrlForum/forums'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(forumData),
     );
     return response;
   }
