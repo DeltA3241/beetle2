@@ -1,10 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class DelegateForumPost extends SliverPersistentHeaderDelegate {
   final String title;
   final String description;
+  final Uint8List imageForum;
+  final int tagIndex;
   DelegateForumPost({
+    required this.tagIndex,
+    required this.imageForum,
     required this.title,
     required this.description,
   });
@@ -34,11 +40,17 @@ class DelegateForumPost extends SliverPersistentHeaderDelegate {
             child: AnimatedOpacity(
               duration: const Duration(microseconds: 500),
               opacity: 1 - shrinkOffset / maxExtent,
-              child: const Image(
-                image: kBeetleFullLogo,
-                fit: BoxFit.contain,
-                width: 350,
-                height: 300,
+              child: Hero(
+                tag: 'imageForum$tagIndex',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image(
+                    image: MemoryImage(imageForum),
+                    fit: BoxFit.contain,
+                    width: 350,
+                    height: 300,
+                  ),
+                ),
               ),
             ),
           ),

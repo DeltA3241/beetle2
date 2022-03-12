@@ -29,6 +29,7 @@ class _ForumMainState extends State<ForumMain> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return ForumCard(
+                      tagIndex: index,
                       authorId: forums.data[index]['author_id'],
                       title: forums.data[index]['title'],
                       imageIsAvailable: forums.data[index]['image'],

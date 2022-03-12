@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:beetle/custom_widgets/image_picker_tile_bottomsheet.dart';
 import 'package:beetle/globals.dart' as global;
@@ -6,22 +7,31 @@ import 'package:beetle/forum/forum_post.dart';
 import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
+import 'package:flutter/services.dart';
 
+// ignore: must_be_immutable
 class ForumCard extends StatelessWidget {
   final String title;
   final String description;
   final String imageIsAvailable;
   final String forumId;
   final int authorId;
+  late Uint8List image;
+  final int tagIndex;
 
-  const ForumCard({
+  ForumCard({
     required this.authorId,
+    required this.tagIndex,
     required this.description,
     required this.title,
     required this.imageIsAvailable,
     required this.forumId,
     Key? key,
   }) : super(key: key);
+
+  void setImageParam() async {
+    image = (await rootBundle.load(kBeetleImagePath)).buffer.asUint8List();
+  }
 
   Widget imageAttached(String imageIsAvailable) {
     if (imageIsAvailable != 'None') {
@@ -31,11 +41,18 @@ class ForumCard extends StatelessWidget {
           // ignore: prefer_typing_uninitialized_variables
           var widget;
           if (image.hasData) {
+            this.image = base64Decode(
+              image.data['image'],
+            );
             widget = Expanded(
               flex: 1,
-              child: Image.memory(
-                base64Decode(
-                  image.data['image'],
+              child: Hero(
+                tag: 'imageForum$tagIndex',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.memory(
+                    this.image,
+                  ),
                 ),
               ),
             );
@@ -48,6 +65,7 @@ class ForumCard extends StatelessWidget {
         },
       );
     } else {
+      setImageParam();
       return const SizedBox(
         width: 2,
       );
@@ -59,17 +77,16 @@ class ForumCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () async {
-          dynamic forumContents =
-              await BeetleNetworking.getForumComents(forumId);
+        onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ForumPost(
+                tagIndex: tagIndex,
+                imageForum: image,
                 forumId: forumId,
                 title: title,
                 description: description,
-                forumContent: forumContents,
               ),
             ),
           );

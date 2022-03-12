@@ -20,8 +20,10 @@ const TextStyle kForumTitleTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const String kBeetleImagePath = 'assets/images/png_files/Beetle_FULL.png';
+
 const AssetImage kBeetleFullLogo = AssetImage(
-  'assets/images/png_files/Beetle_FULL.png',
+  kBeetleImagePath,
 );
 
 const Color kBeetleMainColor = Color(0xffff420e);
@@ -85,7 +87,7 @@ AppBar kBeetleAppBar = AppBar(
     mainAxisSize: MainAxisSize.min,
     children: [
       Hero(
-        tag: 'logo_main',
+        tag: 'logoMain',
         child: Image(
           image: const AssetImage('assets/images/png_files/Beetle.png'),
           height: 0.8 * AppBar().preferredSize.height,
@@ -95,7 +97,7 @@ AppBar kBeetleAppBar = AppBar(
         width: 5,
       ),
       const Hero(
-        tag: 'title_main',
+        tag: 'titleMain',
         child: SizedBox(
           child: Text(
             'Beetle',

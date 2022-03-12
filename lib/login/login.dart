@@ -20,8 +20,8 @@ class LoginPage extends StatelessWidget {
     return FlutterLogin(
       theme: kLoginTheme,
       title: 'Beetle',
-      logoTag: 'logo_main',
-      titleTag: 'title_main',
+      logoTag: 'logoMain',
+      titleTag: 'titleMain',
       logo: const AssetImage('assets/images/png_files/Beetle.png'),
       onLogin: (LoginData data) async {
         response = await BeetleNetworking().loginUser(data.name, data.password);

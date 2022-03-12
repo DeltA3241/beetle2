@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:http/http.dart' as http;
 import 'package:beetle/forum/custom_widgets/comment_card.dart';
 import 'package:beetle/forum/custom_widgets/search_bar.dart';
@@ -9,15 +11,17 @@ import '../utilities/beetle_networking.dart';
 
 // ignore: must_be_immutable
 class ForumPost extends StatelessWidget {
-  final dynamic forumContent;
+  final int tagIndex;
   final String title;
   final String description;
   final String forumId;
   late String text;
+  final Uint8List imageForum;
   ForumPost({
     Key? key,
+    required this.tagIndex,
+    required this.imageForum,
     required this.forumId,
-    required this.forumContent,
     required this.description,
     required this.title,
   }) : super(key: key);
@@ -31,33 +35,51 @@ class ForumPost extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  SliverPersistentHeader(
-                    pinned: false,
-                    floating: true,
-                    delegate: DelegateForumPost(
-                      title: title,
-                      description: description,
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return CommentCard(
-                          authorId: forumContent['comments'][index]
-                              ['creator_id'],
-                          comment: forumContent['comments'][index]['text'],
-                          email: forumContent['comments'][index]
-                              ['creator_name'],
-                          imageIsAvailable: forumContent['comments'][index]
-                              ['image'],
-                        );
-                      },
-                      childCount: forumContent['comments'].length,
-                    ),
-                  )
-                ],
+              child: FutureBuilder<dynamic>(
+                future: BeetleNetworking.getForumComents(forumId),
+                builder: (context, comments) {
+                  // ignore: prefer_typing_uninitialized_variables
+                  var sliverList;
+                  if (comments.hasData) {
+                    sliverList = SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return CommentCard(
+                            authorId: comments.data['comments'][index]
+                                ['creator_id'],
+                            comment: comments.data['comments'][index]['text'],
+                            email: comments.data['comments'][index]
+                                ['creator_name'],
+                            imageIsAvailable: comments.data['comments'][index]
+                                ['image'],
+                          );
+                        },
+                        childCount: comments.data['comments'].length,
+                      ),
+                    );
+                  } else {
+                    sliverList = const SliverToBoxAdapter(
+                      child: Center(
+                        child: CircularProgressIndicator(color: Colors.orange),
+                      ),
+                    );
+                  }
+                  return CustomScrollView(
+                    slivers: [
+                      SliverPersistentHeader(
+                        pinned: false,
+                        floating: true,
+                        delegate: DelegateForumPost(
+                          tagIndex: tagIndex,
+                          imageForum: imageForum,
+                          title: title,
+                          description: description,
+                        ),
+                      ),
+                      sliverList,
+                    ],
+                  );
+                },
               ),
             ),
             Padding(
