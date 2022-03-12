@@ -29,6 +29,7 @@ class _ForumMainState extends State<ForumMain> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return ForumCard(
+                      authorId: forums.data[index]['author_id'],
                       title: forums.data[index]['title'],
                       imageIsAvailable: forums.data[index]['image'],
                       description: forums.data[index]['description'],
@@ -64,7 +65,7 @@ class _ForumMainState extends State<ForumMain> {
             icon: Icons.add,
             onPressed: () {
               showMaterialModalBottomSheet(
-                backgroundColor: const Color(0x33c7bab9),
+                backgroundColor: const Color(0x00c7bab9),
                 context: context,
                 builder: (context) {
                   return const NewForum();

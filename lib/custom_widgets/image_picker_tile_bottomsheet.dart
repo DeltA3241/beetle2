@@ -31,7 +31,7 @@ class ImagePickerTileBottomSheet extends StatelessWidget {
 
   static Future<dynamic> showSheetAndGetChoice(BuildContext context) {
     return showMaterialModalBottomSheet(
-      backgroundColor: const Color(0x33c7bab9),
+      backgroundColor: const Color(0x00c7bab9),
       context: context,
       builder: (context) {
         return Container(

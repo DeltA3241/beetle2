@@ -29,6 +29,34 @@ class BeetleNetworking {
     return response;
   }
 
+  Future<http.Response> addComment(
+      Map<String, String> commentData, String forumID) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.post(
+      Uri.parse('$kBaseUrlForum/forums/$forumID/comments'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(commentData),
+    );
+    return response;
+  }
+
+  Future<dynamic> getImage(String imageId) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.get(
+      Uri.parse('$kBaseUrlForum/image/$imageId'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }
+  }
+
   Future<http.Response> loginUser(String email, String password) async {
     String basicAuth = this.basicAuth(email, password);
     http.Response response = await http.post(

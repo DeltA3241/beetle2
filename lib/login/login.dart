@@ -7,6 +7,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:beetle/globals.dart' as global;
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   final BeetleNetworking beetleNetworking = BeetleNetworking();
   late http.Response response;
