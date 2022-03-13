@@ -9,15 +9,13 @@ import 'package:flutter/material.dart';
 
 import '../utilities/beetle_networking.dart';
 
-// ignore: must_be_immutable
-class ForumPost extends StatelessWidget {
+class ForumPost extends StatefulWidget {
   final int tagIndex;
   final String title;
   final String description;
   final String forumId;
-  late String text;
   final Uint8List imageForum;
-  ForumPost({
+  const ForumPost({
     Key? key,
     required this.tagIndex,
     required this.imageForum,
@@ -26,6 +24,12 @@ class ForumPost extends StatelessWidget {
     required this.title,
   }) : super(key: key);
 
+  @override
+  State<ForumPost> createState() => _ForumPostState();
+}
+
+class _ForumPostState extends State<ForumPost> {
+  String text = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +40,7 @@ class ForumPost extends StatelessWidget {
           children: [
             Expanded(
               child: FutureBuilder<dynamic>(
-                future: BeetleNetworking.getForumComents(forumId),
+                future: BeetleNetworking.getForumComents(widget.forumId),
                 builder: (context, comments) {
                   // ignore: prefer_typing_uninitialized_variables
                   var sliverList;
@@ -44,14 +48,14 @@ class ForumPost extends StatelessWidget {
                     sliverList = SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
+                          dynamic comment = comments.data['comments'][index];
                           return CommentCard(
-                            authorId: comments.data['comments'][index]
-                                ['creator_id'],
-                            comment: comments.data['comments'][index]['text'],
-                            email: comments.data['comments'][index]
-                                ['creator_name'],
-                            imageIsAvailable: comments.data['comments'][index]
-                                ['image'],
+                            forumId: widget.forumId,
+                            commentId: comment['comment_id'],
+                            authorId: comment['creator_id'],
+                            comment: comment['text'],
+                            userName: comment['creator_name'],
+                            imageIsAvailable: comment['image'],
                           );
                         },
                         childCount: comments.data['comments'].length,
@@ -70,10 +74,10 @@ class ForumPost extends StatelessWidget {
                         pinned: false,
                         floating: true,
                         delegate: DelegateForumPost(
-                          tagIndex: tagIndex,
-                          imageForum: imageForum,
-                          title: title,
-                          description: description,
+                          tagIndex: widget.tagIndex,
+                          imageForum: widget.imageForum,
+                          title: widget.title,
+                          description: widget.description,
                         ),
                       ),
                       sliverList,
@@ -104,15 +108,18 @@ class ForumPost extends StatelessWidget {
                   Expanded(
                     child: IconButton(
                       onPressed: () async {
+                        FocusScope.of(context).requestFocus(FocusNode());
                         Map<String, String> commentData = {
                           'text': text,
                         };
                         // commentData.removeWhere(
                         //     (key, value) => value == ' ' || value == null);
                         http.Response response = await BeetleNetworking()
-                            .addComment(commentData, forumId);
+                            .addComment(commentData, widget.forumId);
                         if (response.statusCode == 201) {
-                          Navigator.pop(context);
+                          setState(
+                            () {},
+                          );
                         }
                       },
                       icon: const Icon(

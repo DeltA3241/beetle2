@@ -1,25 +1,35 @@
 import 'dart:convert';
 
+import 'package:beetle/forum/custom_widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:beetle/globals.dart' as global;
+import 'package:http/http.dart';
 import '../../custom_widgets/image_picker_tile_bottomsheet.dart';
 import '../../utilities/beetle_networking.dart';
 
-class CommentCard extends StatelessWidget {
-  final String email;
+class CommentCard extends StatefulWidget {
+  final String userName;
   final String comment;
   final String imageIsAvailable;
   final int authorId;
+  final String commentId;
+  final String forumId;
 
   const CommentCard({
+    required this.commentId,
     required this.comment,
-    required this.email,
+    required this.userName,
     required this.imageIsAvailable,
     required this.authorId,
+    required this.forumId,
     Key? key,
   }) : super(key: key);
+  @override
+  State<CommentCard> createState() => _CommentCardState();
+}
 
+class _CommentCardState extends State<CommentCard> {
   Widget imageAttached(String imageIsAvailable) {
     if (imageIsAvailable != 'None') {
       return FutureBuilder<dynamic>(
@@ -38,7 +48,7 @@ class CommentCard extends StatelessWidget {
             );
           } else {
             widget = const Center(
-              child: CircularProgressIndicator(color: Colors.red),
+              child: CircularProgressIndicator(color: Colors.orange),
             );
           }
           return widget;
@@ -74,22 +84,22 @@ class CommentCard extends StatelessWidget {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        email,
+                        widget.userName,
                         style: kForumTitleTextStyle,
                       ),
                       SizedBox(
-                        child: Text(comment),
+                        child: Text(widget.comment),
                       )
                     ],
                   ),
                 ),
-                imageAttached(imageIsAvailable),
+                imageAttached(widget.imageIsAvailable),
               ],
             ),
           ),
         ),
         onLongPress: () {
-          global.userId == authorId
+          global.userId == widget.authorId
               ? showModalBottomSheet(
                   backgroundColor: const Color(0x00ffffff),
                   context: context,
@@ -106,7 +116,14 @@ class CommentCard extends StatelessWidget {
                           ImagePickerTileBottomSheet(
                             text: 'Delete Comment',
                             icon: Icons.delete_outline,
-                            onTap: () {},
+                            onTap: () async {
+                              Response response = await BeetleNetworking()
+                                  .deleteComment(
+                                      widget.forumId, widget.commentId);
+                              if (response.statusCode == 200) {
+                                Navigator.pop(context);
+                              }
+                            },
                           ),
                           const SizedBox(
                             child: Divider(color: Colors.black),
@@ -114,7 +131,69 @@ class CommentCard extends StatelessWidget {
                           ImagePickerTileBottomSheet(
                             text: 'Update Comment',
                             icon: Icons.error_outline,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pop(context);
+                              showModalBottomSheet(
+                                backgroundColor: const Color(0x00ffffff),
+                                context: context,
+                                builder: (context) {
+                                  String newComment = widget.comment;
+                                  TextEditingController textEditingController =
+                                      TextEditingController()
+                                        ..text = widget.comment;
+                                  return Container(
+                                    margin: const EdgeInsets.only(
+                                      left: 20,
+                                      bottom: 400,
+                                      right: 20,
+                                    ),
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: kForumCardDecoration,
+                                    //color: Colors.orange,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Expanded(
+                                          child: SearchBar(
+                                            textEditingController:
+                                                textEditingController,
+                                            onChanged: (value) {
+                                              newComment = value;
+                                            },
+                                            label: 'Change Comment',
+                                            icon: Icons.messenger_outline_sharp,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: IconButton(
+                                            onPressed: () async {
+                                              Map<String, String>
+                                                  updatedComment = {
+                                                'creator_id':
+                                                    '${global.userId}',
+                                                'creator_name': widget.userName,
+                                                'text': newComment,
+                                              };
+                                              Response response =
+                                                  await BeetleNetworking()
+                                                      .updateComment(
+                                                widget.forumId,
+                                                widget.commentId,
+                                                updatedComment,
+                                              );
+                                              if (response.statusCode == 201) {
+                                                Navigator.pop(context);
+                                              }
+                                            },
+                                            icon: const Icon(Icons.done),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),

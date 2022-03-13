@@ -9,17 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/services.dart';
 
-// ignore: must_be_immutable
-class ForumCard extends StatelessWidget {
+class ForumCard extends StatefulWidget {
   final String title;
   final String description;
   final String imageIsAvailable;
   final String forumId;
   final int authorId;
-  late Uint8List image;
   final int tagIndex;
-
-  ForumCard({
+  const ForumCard({
     required this.authorId,
     required this.tagIndex,
     required this.description,
@@ -28,12 +25,17 @@ class ForumCard extends StatelessWidget {
     required this.forumId,
     Key? key,
   }) : super(key: key);
+  @override
+  State<ForumCard> createState() => _ForumCardState();
+}
 
+class _ForumCardState extends State<ForumCard> {
+  late Uint8List image;
   void setImageParam() async {
     image = (await rootBundle.load(kBeetleImagePath)).buffer.asUint8List();
   }
 
-  Widget imageAttached(String imageIsAvailable) {
+  Widget imageAttached(String imageIsAvailable, int tagIndex) {
     if (imageIsAvailable != 'None') {
       return FutureBuilder<dynamic>(
         future: BeetleNetworking().getImage(imageIsAvailable),
@@ -82,17 +84,17 @@ class ForumCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ForumPost(
-                tagIndex: tagIndex,
+                tagIndex: widget.tagIndex,
                 imageForum: image,
-                forumId: forumId,
-                title: title,
-                description: description,
+                forumId: widget.forumId,
+                title: widget.title,
+                description: widget.description,
               ),
             ),
           );
         },
         onLongPress: () {
-          global.userId == authorId
+          global.userId == widget.authorId
               ? showModalBottomSheet(
                   backgroundColor: const Color(0x00ffffff),
                   context: context,
@@ -158,16 +160,16 @@ class ForumCard extends StatelessWidget {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        title,
+                        widget.title,
                         style: kForumTitleTextStyle,
                       ),
                       Flexible(
-                        child: Text(description + '\n' + forumId),
+                        child: Text(widget.description + '\n' + widget.forumId),
                       )
                     ],
                   ),
                 ),
-                imageAttached(imageIsAvailable),
+                imageAttached(widget.imageIsAvailable, widget.tagIndex),
               ],
             ),
           ),

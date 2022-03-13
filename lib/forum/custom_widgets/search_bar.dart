@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
   final String label;
+  final TextEditingController? textEditingController;
   final void Function(String value)? onChanged;
   final IconData icon;
   const SearchBar({
+    this.textEditingController,
     required this.onChanged,
     required this.label,
     required this.icon,
@@ -14,6 +16,7 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: textEditingController,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.orange),

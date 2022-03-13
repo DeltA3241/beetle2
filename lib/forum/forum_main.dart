@@ -71,7 +71,7 @@ class _ForumMainState extends State<ForumMain> {
                 builder: (context) {
                   return const NewForum();
                 },
-              );
+              ).then((value) => setState(() {}));
             },
           ),
         )
