@@ -49,7 +49,7 @@ const List<String> kMainpages = [
 const EdgeInsets kpaddingSearchBar = EdgeInsets.only(
   top: 20,
   left: 10,
-  right: 10,
+  //right: 3,
   bottom: 10,
 );
 

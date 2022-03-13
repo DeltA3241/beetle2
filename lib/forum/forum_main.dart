@@ -14,13 +14,14 @@ class ForumMain extends StatefulWidget {
 }
 
 class _ForumMainState extends State<ForumMain> {
+  String search = '';
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
         FutureBuilder<dynamic>(
-          future: BeetleNetworking().getForums(),
+          future: BeetleNetworking().getForums('?search=$search'),
           builder: (context, forums) {
             // ignore: prefer_typing_uninitialized_variables
             var sliverList;
@@ -28,6 +29,7 @@ class _ForumMainState extends State<ForumMain> {
               sliverList = SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
+                    search = '';
                     return ForumCard(
                       tagIndex: index,
                       authorId: forums.data[index]['author_id'],
@@ -52,7 +54,16 @@ class _ForumMainState extends State<ForumMain> {
                 SliverPersistentHeader(
                   floating: true,
                   pinned: false,
-                  delegate: DelegateForumMain(),
+                  delegate: DelegateForumMain(
+                    onPressed: () {
+                      setState(() {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      });
+                    },
+                    onChanged: (value) {
+                      search = value;
+                    },
+                  ),
                 ),
                 sliverList,
               ],

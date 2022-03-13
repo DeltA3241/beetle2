@@ -122,8 +122,22 @@ class BeetleNetworking {
     return response;
   }
 
-  Future<dynamic> getForums() async {
-    http.Response response = await http.get(Uri.parse('$kBaseUrlForum/forums'));
+  Future<dynamic> getForums(String search) async {
+    http.Response response;
+    if (search == '?search=') {
+      response = await http.get(
+        Uri.parse(
+          '$kBaseUrlForum/forums',
+        ),
+      );
+    } else {
+      response = await http.get(
+        Uri.parse(
+          '$kBaseUrlForum/forums$search',
+        ),
+      );
+    }
+
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
