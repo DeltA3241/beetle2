@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:beetle/forum/custom_widgets/search_bar.dart';
+import 'package:beetle/forum/custom_widgets/update_delete_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:beetle/globals.dart' as global;
-import 'package:http/http.dart';
 import '../../custom_widgets/image_picker_tile_bottomsheet.dart';
 import '../../utilities/beetle_networking.dart';
 
@@ -104,99 +103,11 @@ class _CommentCardState extends State<CommentCard> {
                   backgroundColor: const Color(0x00ffffff),
                   context: context,
                   builder: (context) {
-                    return Container(
-                      margin: const EdgeInsets.all(30),
-                      padding: const EdgeInsets.all(10),
-                      decoration: kForumCardDecoration,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ImagePickerTileBottomSheet(
-                            text: 'Delete Comment',
-                            icon: Icons.delete_outline,
-                            onTap: () async {
-                              Response response = await BeetleNetworking()
-                                  .deleteComment(
-                                      widget.forumId, widget.commentId);
-                              if (response.statusCode == 200) {
-                                Navigator.pop(context);
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            child: Divider(color: Colors.black),
-                          ),
-                          ImagePickerTileBottomSheet(
-                            text: 'Update Comment',
-                            icon: Icons.error_outline,
-                            onTap: () {
-                              Navigator.pop(context);
-                              showModalBottomSheet(
-                                backgroundColor: const Color(0x00ffffff),
-                                context: context,
-                                builder: (context) {
-                                  String newComment = widget.comment;
-                                  TextEditingController textEditingController =
-                                      TextEditingController()
-                                        ..text = widget.comment;
-                                  return Container(
-                                    margin: const EdgeInsets.only(
-                                      left: 20,
-                                      bottom: 400,
-                                      right: 20,
-                                    ),
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: kForumCardDecoration,
-                                    //color: Colors.orange,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Expanded(
-                                          child: SearchBar(
-                                            textEditingController:
-                                                textEditingController,
-                                            onChanged: (value) {
-                                              newComment = value;
-                                            },
-                                            label: 'Change Comment',
-                                            icon: Icons.messenger_outline_sharp,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: IconButton(
-                                            onPressed: () async {
-                                              Map<String, String>
-                                                  updatedComment = {
-                                                'creator_id':
-                                                    '${global.userId}',
-                                                'creator_name': widget.userName,
-                                                'text': newComment,
-                                              };
-                                              Response response =
-                                                  await BeetleNetworking()
-                                                      .updateComment(
-                                                widget.forumId,
-                                                widget.commentId,
-                                                updatedComment,
-                                              );
-                                              if (response.statusCode == 201) {
-                                                Navigator.pop(context);
-                                              }
-                                            },
-                                            icon: const Icon(Icons.done),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                    return UpdateDeleteComment(
+                      commentId: widget.commentId,
+                      comment: widget.comment,
+                      userName: widget.userName,
+                      forumId: widget.forumId,
                     );
                   },
                 )

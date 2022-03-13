@@ -69,6 +69,18 @@ class BeetleNetworking {
     return response;
   }
 
+  // Future<http.Response> getOrders(String email, String password) async {
+  //   String basicAuth = this.basicAuth('Ahmad@email.com', 'Pass123@');
+  //   http.Response response = await http.get(
+  //     Uri.parse('https://beetle-shop.azurewebsites.net/shop/user/orders'),
+  //     headers: <String, String>{
+  //       'authorization': basicAuth,
+  //       'Accept': 'application/json'
+  //     },
+  //   );
+  //   return response;
+  // }
+
   Future<http.Response> deleteComment(String forumId, String commentId) async {
     String basicAuth = this.basicAuth(global.username, global.password);
     http.Response response = await http.delete(
