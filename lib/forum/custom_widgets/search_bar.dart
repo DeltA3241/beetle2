@@ -4,12 +4,12 @@ class SearchBar extends StatelessWidget {
   final String label;
   final TextEditingController? textEditingController;
   final void Function(String value)? onChanged;
-  final IconData icon;
+  final IconData? icon;
   const SearchBar({
     this.textEditingController,
     required this.onChanged,
     required this.label,
-    required this.icon,
+    this.icon,
     Key? key,
   }) : super(key: key);
 

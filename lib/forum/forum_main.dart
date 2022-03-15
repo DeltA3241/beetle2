@@ -56,9 +56,11 @@ class _ForumMainState extends State<ForumMain> {
                   pinned: false,
                   delegate: DelegateForumMain(
                     onPressed: () {
-                      setState(() {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                      });
+                      setState(
+                        () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                      );
                     },
                     onChanged: (value) {
                       search = value;

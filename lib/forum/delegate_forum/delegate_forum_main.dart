@@ -25,7 +25,7 @@ class DelegateForumMain extends SliverPersistentHeaderDelegate {
             padding: kpaddingSearchBar,
             child: SearchBar(
               label: 'Search Post / پوسٹ تلاش کریں',
-              icon: Icons.search,
+              //icon: Icons.search,
               onChanged: onChanged,
             ),
           ),

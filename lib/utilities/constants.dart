@@ -45,7 +45,11 @@ const List<String> kMainpages = [
   '/',
   '/driver',
 ];
-
+const kImageAddedSnackBar = SnackBar(
+  content: Text('Image Added'),
+  margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
+  behavior: SnackBarBehavior.floating,
+);
 const EdgeInsets kpaddingSearchBar = EdgeInsets.only(
   top: 20,
   left: 10,

@@ -1,4 +1,3 @@
-import 'package:beetle/forum/custom_widgets/search_bar.dart';
 import 'package:beetle/forum/custom_widgets/update_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';

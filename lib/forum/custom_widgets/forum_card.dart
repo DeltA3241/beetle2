@@ -8,6 +8,7 @@ import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 
 class ForumCard extends StatefulWidget {
   final String title;
@@ -111,13 +112,21 @@ class _ForumCardState extends State<ForumCard> {
                           ImagePickerTileBottomSheet(
                             text: 'Delete Forum',
                             icon: Icons.delete_outline,
-                            onTap: () {},
+                            onTap: () async {
+                              Response response =
+                                  await BeetleNetworking().deleteForum(
+                                widget.forumId,
+                              );
+                              if (response.statusCode == 200) {
+                                Navigator.pop(context);
+                              }
+                            },
                           ),
                           const SizedBox(
                             child: Divider(color: Colors.black),
                           ),
                           ImagePickerTileBottomSheet(
-                            text: 'Report Forum',
+                            text: 'Update Forum',
                             icon: Icons.error_outline,
                             onTap: () {},
                           ),

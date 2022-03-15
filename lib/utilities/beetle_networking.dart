@@ -30,7 +30,7 @@ class BeetleNetworking {
   }
 
   Future<http.Response> addComment(
-      Map<String, String> commentData, String forumID) async {
+      Map<String, dynamic> commentData, String forumID) async {
     String basicAuth = this.basicAuth(global.username, global.password);
     http.Response response = await http.post(
       Uri.parse('$kBaseUrlForum/forums/$forumID/comments'),
@@ -153,6 +153,18 @@ class BeetleNetworking {
     } else {
       return 'error';
     }
+  }
+
+  Future<http.Response> deleteForum(String forumId) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.delete(
+      Uri.parse('$kBaseUrlForum/forums/$forumId'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Accept': 'application/json'
+      },
+    );
+    return response;
   }
 
   String basicAuth(String username, String password) {
