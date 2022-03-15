@@ -1,7 +1,6 @@
 import 'dart:typed_data';
-
-import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import '../custom_widgets/delegate_forum_post_widget.dart';
 
 class DelegateForumPost extends SliverPersistentHeaderDelegate {
   final String title;
@@ -18,59 +17,13 @@ class DelegateForumPost extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      margin: const EdgeInsets.all(15),
-      padding: const EdgeInsets.all(10),
-      decoration: kForumCardDecoration,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned(
-            left: 5,
-            top: 5,
-            child: Text(
-              title,
-              textAlign: TextAlign.start,
-              style: kForumTitleTextStyle,
-            ),
-          ),
-          Positioned(
-            top: 10,
-            left: 5,
-            child: AnimatedOpacity(
-              duration: const Duration(microseconds: 500),
-              opacity: 1 - shrinkOffset / maxExtent,
-              child: Hero(
-                tag: 'imageForum$tagIndex',
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image(
-                    image: MemoryImage(imageForum),
-                    fit: BoxFit.contain,
-                    width: 350,
-                    height: 300,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 300,
-            left: 5,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 500),
-              opacity: 1 - shrinkOffset / maxExtent,
-              child: SizedBox(
-                width: 350,
-                child: Text(
-                  description,
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+    return DelegateForumPostWidget(
+      title: title,
+      maxExtent: maxExtent,
+      tagIndex: tagIndex,
+      imageForum: imageForum,
+      description: description,
+      shrinkOffset: shrinkOffset,
     );
   }
 

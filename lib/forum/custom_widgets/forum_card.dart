@@ -55,6 +55,9 @@ class _ForumCardState extends State<ForumCard> {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.memory(
                     this.image,
+                    fit: BoxFit.cover,
+                    cacheHeight: 400,
+                    cacheWidth: 400,
                   ),
                 ),
               ),

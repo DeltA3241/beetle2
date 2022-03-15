@@ -38,7 +38,7 @@ class _CommentCardState extends State<CommentCard> {
           var widget;
           if (image.hasData) {
             widget = Expanded(
-              flex: 1,
+              flex: 3,
               child: Image.memory(
                 base64Decode(
                   image.data['image'],
@@ -75,9 +75,16 @@ class _CommentCardState extends State<CommentCard> {
             width: double.infinity,
             decoration: kCommentCardDecoration,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const Expanded(
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                  ),
+                ),
                 Expanded(
-                  flex: 2,
+                  flex: 6,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     textBaseline: TextBaseline.alphabetic,
@@ -85,6 +92,9 @@ class _CommentCardState extends State<CommentCard> {
                       Text(
                         widget.userName,
                         style: kForumTitleTextStyle,
+                      ),
+                      const SizedBox(
+                        height: 2,
                       ),
                       SizedBox(
                         child: Text(widget.comment),

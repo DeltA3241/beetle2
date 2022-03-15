@@ -159,9 +159,9 @@ class _ForumPostState extends State<ForumPost> {
                             imageBytes = await image!.readAsBytes();
                             encodedImage = base64Encode(imageBytes);
                           }
-                          // setState(() {
-                          //   _progress = true;
-                          // });
+                          setState(() {
+                            _progress = true;
+                          });
                           textEditingController.clear();
                           FocusScope.of(context).requestFocus(FocusNode());
                           Map<String, dynamic> commentData = {
@@ -175,7 +175,7 @@ class _ForumPostState extends State<ForumPost> {
                           if (response.statusCode == 201) {
                             setState(
                               () {
-                                _progress = true;
+                                _progress = false;
                                 image = null;
                               },
                             );
