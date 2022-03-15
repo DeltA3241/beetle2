@@ -45,6 +45,17 @@ const List<String> kMainpages = [
   '/',
   '/driver',
 ];
+const SnackBar kPleaseWaitImageMessage = SnackBar(
+  content: Text(
+      'Please wait while image is loading / تصویر لوڈ ہونے تک انتظار کریں۔'),
+  margin: EdgeInsets.only(
+    top: 10,
+    bottom: 20,
+    left: 10,
+    right: 10,
+  ),
+  behavior: SnackBarBehavior.floating,
+);
 const kImageAddedSnackBar = SnackBar(
   content: Text('Image Added'),
   margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),

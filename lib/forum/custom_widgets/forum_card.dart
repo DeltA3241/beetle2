@@ -31,7 +31,7 @@ class ForumCard extends StatefulWidget {
 }
 
 class _ForumCardState extends State<ForumCard> {
-  late Uint8List image;
+  Uint8List image = Uint8List(0);
   void setImageParam() async {
     image = (await rootBundle.load(kBeetleImagePath)).buffer.asUint8List();
   }
@@ -84,18 +84,24 @@ class _ForumCardState extends State<ForumCard> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ForumPost(
-                tagIndex: widget.tagIndex,
-                imageForum: image,
-                forumId: widget.forumId,
-                title: widget.title,
-                description: widget.description,
+          if (image.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              kPleaseWaitImageMessage,
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ForumPost(
+                  tagIndex: widget.tagIndex,
+                  imageForum: image,
+                  forumId: widget.forumId,
+                  title: widget.title,
+                  description: widget.description,
+                ),
               ),
-            ),
-          );
+            );
+          }
         },
         onLongPress: () {
           global.userId == widget.authorId
@@ -160,7 +166,7 @@ class _ForumCardState extends State<ForumCard> {
           elevation: 20,
           borderRadius: kBorderRadiusForumCards,
           child: Container(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(15),
             height: 200,
             width: double.infinity,
             decoration: kForumCardDecoration,

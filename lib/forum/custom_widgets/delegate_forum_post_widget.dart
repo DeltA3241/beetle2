@@ -58,21 +58,21 @@ class _DelegateForumPostWidgetState extends State<DelegateForumPostWidget> {
                   child: Image(
                     image: MemoryImage(widget.imageForum),
                     fit: BoxFit.cover,
-                    width: 350,
-                    height: 300,
+                    width: 0.8 * MediaQuery.of(context).size.width,
+                    height: 0.8 * MediaQuery.of(context).size.width,
                   ),
                 ),
               ),
             ),
           ),
           Positioned(
-            top: 330,
+            top: 0.87 * MediaQuery.of(context).size.width,
             left: 5,
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 500),
               opacity: 1 - widget.shrinkOffset / widget.maxExtent,
               child: SizedBox(
-                width: 350,
+                width: 0.8 * MediaQuery.of(context).size.width,
                 child: Text(
                   widget.description,
                   textAlign: TextAlign.start,

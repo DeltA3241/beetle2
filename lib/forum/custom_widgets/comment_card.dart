@@ -39,9 +39,13 @@ class _CommentCardState extends State<CommentCard> {
           if (image.hasData) {
             widget = Expanded(
               flex: 3,
-              child: Image.memory(
-                base64Decode(
-                  image.data['image'],
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.memory(
+                  base64Decode(
+                    image.data['image'],
+                  ),
+                  fit: BoxFit.cover,
                 ),
               ),
             );
@@ -63,14 +67,14 @@ class _CommentCardState extends State<CommentCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10),
       child: GestureDetector(
         child: Material(
           shadowColor: Colors.grey,
           elevation: 20,
           borderRadius: kBorderRadiusForumCards,
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
             height: 100,
             width: double.infinity,
             decoration: kCommentCardDecoration,

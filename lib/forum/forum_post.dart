@@ -99,8 +99,8 @@ class _ForumPostState extends State<ForumPost> {
               Padding(
                 padding: const EdgeInsets.only(
                   bottom: 10,
-                  left: 10,
-                  //right: 10,
+                  left: 5,
+                  right: 5,
                   top: 5,
                 ),
                 child: Row(
