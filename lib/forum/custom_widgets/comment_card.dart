@@ -5,6 +5,7 @@ import 'package:beetle/forum/custom_widgets/update_delete_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:beetle/globals.dart' as global;
+import 'package:http/http.dart';
 import '../../custom_widgets/image_picker_tile_bottomsheet.dart';
 import '../../utilities/beetle_networking.dart';
 
@@ -46,12 +47,12 @@ class _CommentCardState extends State<CommentCard> {
                 setState(() {
                   audioPlaying = true;
                 });
-                int result = await audioPlayer.playBytes(
+                await audioPlayer.playBytes(
                   base64Decode(
                     audio.data['image'],
                   ),
                 );
-                // if (result == 1) {
+                // if (audioPlayer.onPlayerCompletion.) {
                 //   setState(() {
                 //     audioPlaying = false;
                 //   });
@@ -193,7 +194,15 @@ class _CommentCardState extends State<CommentCard> {
                       child: ImagePickerTileBottomSheet(
                         text: 'Report Comment',
                         icon: Icons.error_outline,
-                        onTap: () {},
+                        onTap: () async {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            kPleaseWait,
+                          );
+                          Response response = await BeetleNetworking().report(
+                            widget.commentId,
+                          );
+                        },
                       ),
                     );
                   },

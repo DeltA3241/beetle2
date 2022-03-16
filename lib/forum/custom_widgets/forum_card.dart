@@ -155,7 +155,15 @@ class _ForumCardState extends State<ForumCard> {
                       child: ImagePickerTileBottomSheet(
                         text: 'Report Forum',
                         icon: Icons.error_outline,
-                        onTap: () {},
+                        onTap: () async {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            kPleaseWait,
+                          );
+                          Response response = await BeetleNetworking().report(
+                            widget.forumId,
+                          );
+                        },
                       ),
                     );
                   },

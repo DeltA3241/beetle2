@@ -167,6 +167,20 @@ class BeetleNetworking {
     return response;
   }
 
+  Future<http.Response> report(String id) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.post(
+        Uri.parse('$kBaseUrlForum/comments/report'),
+        headers: <String, String>{
+          'authorization': basicAuth,
+          'Accept': 'application/json'
+        },
+        body: jsonEncode(<String, String>{
+          'comment_id': id,
+        }));
+    return response;
+  }
+
   String basicAuth(String username, String password) {
     String basicAuth = 'Basic ' +
         base64Encode(

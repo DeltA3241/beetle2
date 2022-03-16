@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:beetle/custom_widgets/floating_round_icon_button.dart';
 import 'package:beetle/custom_widgets/round_icon_button.dart';
+import 'package:beetle/disease_detection/disease_response.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -31,88 +33,110 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: DottedBorder(
-              color: kBeetleMainColor,
-              radius: const Radius.circular(20),
-              borderType: BorderType.RRect,
-              strokeWidth: 2,
-              dashPattern: const [4, 5],
-              child: Container(
-                decoration: kForumCardDecoration,
-                width: double.infinity,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    RoundIconButton(
-                      onPressed: () {},
-                      icon: 'assets/images/png_files/wheat.png',
+        Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: DottedBorder(
+                  color: kBeetleMainColor,
+                  radius: const Radius.circular(20),
+                  borderType: BorderType.RRect,
+                  strokeWidth: 2,
+                  dashPattern: const [4, 5],
+                  child: Container(
+                    decoration: kForumCardDecoration,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        RoundIconButton(
+                          onPressed: () {},
+                          icon: 'assets/images/png_files/wheat.png',
+                        ),
+                        RoundIconButton(
+                          onPressed: () {},
+                          icon: 'assets/images/png_files/wheat.png',
+                        ),
+                        RoundIconButton(
+                          onPressed: () {},
+                          icon: 'assets/images/png_files/wheat.png',
+                        ),
+                        RoundIconButton(
+                          onPressed: () {},
+                          icon: 'assets/images/png_files/wheat.png',
+                        ),
+                        RoundIconButton(
+                          onPressed: () {},
+                          icon: 'assets/images/png_files/wheat.png',
+                        ),
+                        RoundIconButton(
+                          onPressed: () {},
+                          icon: 'assets/images/png_files/wheat.png',
+                        )
+                      ],
                     ),
-                    RoundIconButton(
-                      onPressed: () {},
-                      icon: 'assets/images/png_files/wheat.png',
-                    ),
-                    RoundIconButton(
-                      onPressed: () {},
-                      icon: 'assets/images/png_files/wheat.png',
-                    ),
-                    RoundIconButton(
-                      onPressed: () {},
-                      icon: 'assets/images/png_files/wheat.png',
-                    ),
-                    RoundIconButton(
-                      onPressed: () {},
-                      icon: 'assets/images/png_files/wheat.png',
-                    ),
-                    RoundIconButton(
-                      onPressed: () {},
-                      icon: 'assets/images/png_files/wheat.png',
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 4,
-          child: Padding(
-            padding: const EdgeInsets.all(9),
-            child: GestureDetector(
-              onTap: () async {
-                var source =
-                    await ImagePickerTileBottomSheet.showSheetAndGetChoice(
-                        context);
-                if (source != null) {
-                  final ImagePicker _picker = ImagePicker();
-                  image = await _picker.pickImage(source: source);
-                  setState(
-                    () {
-                      option(image);
-                    },
-                  );
-                }
-              },
-              child: DottedBorder(
-                color: kBeetleMainColor,
-                radius: const Radius.circular(20),
-                borderType: BorderType.RRect,
-                strokeWidth: 2,
-                dashPattern: const [4, 5],
-                child: Container(
-                  width: double.infinity,
-                  decoration: kForumCardDecoration,
-                  child: Center(
-                    child: option(image),
                   ),
                 ),
               ),
             ),
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(9),
+                child: GestureDetector(
+                  onTap: () async {
+                    var source =
+                        await ImagePickerTileBottomSheet.showSheetAndGetChoice(
+                            context);
+                    if (source != null) {
+                      final ImagePicker _picker = ImagePicker();
+                      image = await _picker.pickImage(source: source);
+                      setState(
+                        () {
+                          option(image);
+                        },
+                      );
+                    }
+                  },
+                  child: DottedBorder(
+                    color: kBeetleMainColor,
+                    radius: const Radius.circular(20),
+                    borderType: BorderType.RRect,
+                    strokeWidth: 2,
+                    dashPattern: const [4, 5],
+                    child: Container(
+                      width: double.infinity,
+                      decoration: kForumCardDecoration,
+                      child: Center(
+                        child: option(image),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+        Positioned(
+          bottom: 5,
+          right: 4,
+          child: FloatingRoundIconButton(
+            icon: Icons.check,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const DiseaseResponse();
+                  },
+                ),
+              );
+            },
           ),
         )
       ],

@@ -56,18 +56,39 @@ const SnackBar kPleaseWaitImageMessage = SnackBar(
   ),
   behavior: SnackBarBehavior.floating,
 );
+const SnackBar kPleaseWait = SnackBar(
+  content: Text('Please wait / انتظار کریں۔'),
+  margin: EdgeInsets.only(
+    top: 10,
+    bottom: 100,
+    left: 10,
+    right: 10,
+  ),
+  behavior: SnackBarBehavior.floating,
+  duration: Duration(milliseconds: 1000),
+);
+const SnackBar kDoneSnackBar = SnackBar(
+  content: Text('Done / ہو گیا'),
+  margin: EdgeInsets.only(
+    top: 10,
+    bottom: 10,
+    left: 10,
+    right: 10,
+  ),
+  behavior: SnackBarBehavior.floating,
+);
 const kImageAddedSnackBar = SnackBar(
-  content: Text('Image Added'),
+  content: Text('Image Added / تصویر شامل کی گئی۔'),
   margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
   behavior: SnackBarBehavior.floating,
 );
 const kVoiceAddedSnackBar = SnackBar(
-  content: Text('Voice Added'),
+  content: Text('Voice Added / آواز شامل کی گئی۔'),
   margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
   behavior: SnackBarBehavior.floating,
 );
 const kVoiceremovedSnackBar = SnackBar(
-  content: Text('Voice Added'),
+  content: Text('Voice Removed / آواز ہٹا دی گئی۔'),
   margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
   behavior: SnackBarBehavior.floating,
 );
@@ -97,15 +118,20 @@ LoginTheme kLoginTheme = LoginTheme(
 );
 
 LoginMessages kLoginMessages = LoginMessages(
-  loginButton: 'لاگ ان',
-  signupButton: 'سائن اپ',
-  forgotPasswordButton: 'پاسورڈ بھول گے؟',
+  loginButton: 'Login / لاگ ان',
+  signupButton: 'SignUp / سائن اپ',
+  forgotPasswordButton: 'Forgot Password? / پاسورڈ بھول گے؟',
   userHint: 'Email / ای میل',
   passwordHint: 'Password / پاس ورڈ',
   confirmPasswordHint: 'Confirm Password / پاس ورڈ کی تصدیق کریں',
+  goBackButton: 'Go Back / واپس جاو',
+  additionalSignUpSubmitButton: 'Submit / جمع کرائیں',
 );
 
 AppBar kBeetleAppBar = AppBar(
+  iconTheme: const IconThemeData(
+    color: kBeetleMainColor,
+  ),
   automaticallyImplyLeading: true,
   title: Row(
     mainAxisAlignment: MainAxisAlignment.center,
