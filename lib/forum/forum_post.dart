@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:beetle/custom_widgets/image_picker_tile_bottomsheet.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:beetle/forum/custom_widgets/comment_card.dart';
 import 'package:beetle/forum/custom_widgets/search_bar.dart';
@@ -10,7 +12,7 @@ import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
+import 'package:record/record.dart';
 import '../utilities/beetle_networking.dart';
 
 class ForumPost extends StatefulWidget {
@@ -33,10 +35,24 @@ class ForumPost extends StatefulWidget {
 }
 
 class _ForumPostState extends State<ForumPost> {
+  late bool recordingPermission;
+  @override
+  void initState() {
+    getPermission();
+    super.initState();
+  }
+
+  void getPermission() async {
+    recordingPermission = await record.hasPermission();
+  }
+
+  final record = Record();
+  AudioPlayer audioPlayer = AudioPlayer();
   TextEditingController textEditingController = TextEditingController();
   String text = '';
   bool _progress = false;
   XFile? image;
+  dynamic audioAsBytes;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +76,7 @@ class _ForumPostState extends State<ForumPost> {
                             dynamic comment = comments.data['comments'][index];
                             return CommentCard(
                               forumId: widget.forumId,
+                              audioIsAvailable: comment['voice_note'],
                               commentId: comment['comment_id'],
                               authorId: comment['creator_id'],
                               comment: comment['text'],
@@ -140,10 +157,30 @@ class _ForumPostState extends State<ForumPost> {
                       ),
                     ),
                     Expanded(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.mic,
+                      child: GestureDetector(
+                        onLongPressStart: (details) async {
+                          HapticFeedback.heavyImpact();
+                          if (recordingPermission) {
+                            await record.start();
+                          }
+                        },
+                        onLongPressUp: () async {
+                          String? audio = await record.stop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            kVoiceAddedSnackBar,
+                          );
+                          audioAsBytes =
+                              File(audio.toString()).readAsBytesSync();
+                        },
+                        onTap: () {
+                          audioAsBytes = null;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            kVoiceremovedSnackBar,
+                          );
+                        },
+                        child: const Icon(
+                          Icons.mic_none_outlined,
+                          size: 24,
                           color: Colors.orange,
                         ),
                       ),
@@ -159,6 +196,12 @@ class _ForumPostState extends State<ForumPost> {
                             imageBytes = await image!.readAsBytes();
                             encodedImage = base64Encode(imageBytes);
                           }
+                          dynamic encodedAudio;
+                          if (audioAsBytes == null) {
+                            encodedAudio = null;
+                          } else {
+                            encodedAudio = base64Encode(audioAsBytes);
+                          }
                           setState(() {
                             _progress = true;
                           });
@@ -167,9 +210,10 @@ class _ForumPostState extends State<ForumPost> {
                           Map<String, dynamic> commentData = {
                             'text': text,
                             'image': encodedImage,
+                            'voice_note': encodedAudio,
                           };
                           commentData.removeWhere(
-                              (key, value) => value == ' ' || value == null);
+                              (key, value) => value == '' || value == null);
                           http.Response response = await BeetleNetworking()
                               .addComment(commentData, widget.forumId);
                           if (response.statusCode == 201) {
@@ -177,6 +221,7 @@ class _ForumPostState extends State<ForumPost> {
                               () {
                                 _progress = false;
                                 image = null;
+                                audioAsBytes = null;
                               },
                             );
                           }

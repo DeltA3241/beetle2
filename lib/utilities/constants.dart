@@ -61,6 +61,16 @@ const kImageAddedSnackBar = SnackBar(
   margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
   behavior: SnackBarBehavior.floating,
 );
+const kVoiceAddedSnackBar = SnackBar(
+  content: Text('Voice Added'),
+  margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
+  behavior: SnackBarBehavior.floating,
+);
+const kVoiceremovedSnackBar = SnackBar(
+  content: Text('Voice Added'),
+  margin: EdgeInsets.only(bottom: 100, left: 10, right: 10),
+  behavior: SnackBarBehavior.floating,
+);
 const EdgeInsets kpaddingSearchBar = EdgeInsets.only(
   top: 20,
   left: 10,
