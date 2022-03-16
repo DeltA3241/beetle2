@@ -190,7 +190,7 @@ class _ForumCardState extends State<ForumCard> {
                         style: kForumTitleTextStyle,
                       ),
                       Flexible(
-                        child: Text(widget.description + '\n' + widget.forumId),
+                        child: Text(widget.description),
                       )
                     ],
                   ),

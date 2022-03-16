@@ -35,7 +35,7 @@ class _DriverState extends State<Driver> {
         backgroundColor: kBeetleMainColor,
         items: const [
           TabItem(icon: FontAwesomeIcons.bug, title: 'AI'),
-          TabItem(icon: FontAwesomeIcons.shoppingBag, title: 'ECommerce'),
+          TabItem(icon: FontAwesomeIcons.shoppingBag, title: 'Shop'),
           TabItem(icon: FontAwesomeIcons.alignLeft, title: 'Forum'),
           TabItem(icon: Icons.settings, title: 'Settings'),
           TabItem(icon: Icons.people, title: 'Profile'),

@@ -126,6 +126,13 @@ LoginMessages kLoginMessages = LoginMessages(
   confirmPasswordHint: 'Confirm Password / پاس ورڈ کی تصدیق کریں',
   goBackButton: 'Go Back / واپس جاو',
   additionalSignUpSubmitButton: 'Submit / جمع کرائیں',
+  // confirmRecoverIntro:
+  //     'We will send new password to this email / ہم اس ای میل پر نیا پاس ورڈ بھیجیں گے۔',
+  recoverPasswordButton: 'Recover / بازیافت کریں۔',
+  recoverPasswordIntro:
+      'Reset your password here / یہاں اپنا پاس ورڈ بازیافت کریں۔',
+  additionalSignUpFormDescription:
+      'please fill in this form / اس فارم کو بھریں',
 );
 
 AppBar kBeetleAppBar = AppBar(

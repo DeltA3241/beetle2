@@ -2,6 +2,7 @@ import 'package:beetle/driver.dart';
 import 'package:beetle/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale("en", "US"),
+        Locale("fa", "IR"),
+        Locale('ur', "ur_PK")
+      ],
       debugShowCheckedModeBanner: false,
       title: 'Beetle',
       theme: ThemeData(

@@ -95,13 +95,15 @@ class _CommentCardState extends State<CommentCard> {
           if (image.hasData) {
             widget = Expanded(
               flex: 3,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.memory(
-                  base64Decode(
-                    image.data['image'],
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.memory(
+                    base64Decode(
+                      image.data['image'],
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
                 ),
               ),
             );
@@ -135,7 +137,7 @@ class _CommentCardState extends State<CommentCard> {
             width: double.infinity,
             decoration: kCommentCardDecoration,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Expanded(
