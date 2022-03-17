@@ -43,7 +43,7 @@ class _UpdateCommentState extends State<UpdateComment> {
       child: Container(
         margin: const EdgeInsets.only(
           left: 20,
-          bottom: 400,
+          bottom: 350,
           right: 20,
         ),
         padding: const EdgeInsets.all(10),

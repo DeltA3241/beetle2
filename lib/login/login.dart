@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
         };
         response = await BeetleNetworking().signupUser(signupDetails);
         if (response.statusCode == 201) {
-          return 'Account Created';
+          return 'Please LogIn now';
         } else {
           return 'Try Again';
         }

@@ -39,14 +39,16 @@ class _DelegateForumPostWidgetState extends State<DelegateForumPostWidget> {
           Positioned(
             left: 5,
             top: 5,
-            child: Text(
-              widget.title,
-              textAlign: TextAlign.start,
-              style: kForumTitleTextStyle,
+            child: SizedBox(
+              child: Text(
+                widget.title,
+                textAlign: TextAlign.start,
+                style: kForumTitleTextStyle,
+              ),
             ),
           ),
           Positioned(
-            top: 25,
+            top: 27,
             left: 5,
             child: AnimatedOpacity(
               duration: const Duration(microseconds: 500),

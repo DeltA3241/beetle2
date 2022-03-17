@@ -95,7 +95,7 @@ const kVoiceremovedSnackBar = SnackBar(
 const EdgeInsets kpaddingSearchBar = EdgeInsets.only(
   top: 20,
   left: 10,
-  //right: 3,
+  right: 10,
   bottom: 10,
 );
 
@@ -118,22 +118,22 @@ LoginTheme kLoginTheme = LoginTheme(
 );
 
 LoginMessages kLoginMessages = LoginMessages(
-  loginButton: 'Login / لاگ ان',
-  signupButton: 'SignUp / سائن اپ',
-  forgotPasswordButton: 'Forgot Password? / پاسورڈ بھول گے؟',
-  userHint: 'Email / ای میل',
-  passwordHint: 'Password / پاس ورڈ',
-  confirmPasswordHint: 'Confirm Password / پاس ورڈ کی تصدیق کریں',
-  goBackButton: 'Go Back / واپس جاو',
-  additionalSignUpSubmitButton: 'Submit / جمع کرائیں',
-  // confirmRecoverIntro:
-  //     'We will send new password to this email / ہم اس ای میل پر نیا پاس ورڈ بھیجیں گے۔',
-  recoverPasswordButton: 'Recover / بازیافت کریں۔',
-  recoverPasswordIntro:
-      'Reset your password here / یہاں اپنا پاس ورڈ بازیافت کریں۔',
-  additionalSignUpFormDescription:
-      'please fill in this form / اس فارم کو بھریں',
-);
+    loginButton: 'Login / لاگ ان',
+    signupButton: 'SignUp / سائن اپ',
+    forgotPasswordButton: 'Forgot Password? / پاسورڈ بھول گے؟',
+    userHint: 'Email / ای میل',
+    passwordHint: 'Password / پاس ورڈ',
+    confirmPasswordHint: 'Confirm Password / پاس ورڈ کی تصدیق کریں',
+    goBackButton: 'Go Back / واپس جاو',
+    additionalSignUpSubmitButton: 'Submit / جمع کرائیں',
+    // confirmRecoverIntro:
+    //     'We will send new password to this email / ہم اس ای میل پر نیا پاس ورڈ بھیجیں گے۔',
+    recoverPasswordButton: 'Recover / بازیافت کریں۔',
+    recoverPasswordIntro:
+        'Reset your password here / یہاں اپنا پاس ورڈ بازیافت کریں۔',
+    additionalSignUpFormDescription:
+        'please fill in this form / اس فارم کو بھریں',
+    signUpSuccess: 'please log in now / براہ کرم ابھی لاگ ان کریں۔');
 
 AppBar kBeetleAppBar = AppBar(
   iconTheme: const IconThemeData(
