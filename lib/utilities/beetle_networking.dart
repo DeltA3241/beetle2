@@ -181,6 +181,19 @@ class BeetleNetworking {
     return response;
   }
 
+  Future<http.Response> getDetails(Map<String, dynamic> details) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.post(
+      Uri.parse('http://be3e-121-52-146-244.ngrok.io/analytics/analyse'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Accept': 'application/json'
+      },
+      body: jsonEncode(details),
+    );
+    return response;
+  }
+
   String basicAuth(String username, String password) {
     String basicAuth = 'Basic ' +
         base64Encode(
