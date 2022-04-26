@@ -5,7 +5,6 @@ import 'package:beetle/forum/custom_widgets/update_delete_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:beetle/globals.dart' as global;
-import 'package:http/http.dart';
 import '../../custom_widgets/image_picker_tile_bottomsheet.dart';
 import '../../utilities/beetle_networking.dart';
 
@@ -201,7 +200,7 @@ class _CommentCardState extends State<CommentCard> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             kPleaseWait,
                           );
-                          Response response = await BeetleNetworking().report(
+                          await BeetleNetworking().report(
                             widget.commentId,
                           );
                         },

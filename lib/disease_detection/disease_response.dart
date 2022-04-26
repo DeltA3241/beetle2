@@ -3,9 +3,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class DiseaseResponse extends StatefulWidget {
-  final String responseBody;
-  const DiseaseResponse({Key? key, required this.responseBody})
-      : super(key: key);
+  final Map<String, String> details;
+  const DiseaseResponse({
+    Key? key,
+    required this.details,
+  }) : super(key: key);
 
   @override
   State<DiseaseResponse> createState() => _DiseaseResponseState();
@@ -27,7 +29,9 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
           child: Container(
             padding: const EdgeInsets.all(15),
             decoration: kForumCardDecoration,
-            child: Text(widget.responseBody),
+            child: const Center(
+              child: Text('check'),
+            ),
           ),
         ),
       ),

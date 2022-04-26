@@ -4,11 +4,9 @@ import 'dart:io';
 import 'package:beetle/custom_widgets/floating_round_icon_button.dart';
 import 'package:beetle/custom_widgets/round_icon_button.dart';
 import 'package:beetle/disease_detection/disease_response.dart';
-import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../custom_widgets/image_picker_tile_bottomsheet.dart';
@@ -44,11 +42,31 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
         fit: StackFit.expand,
         children: [
           Column(
+            textBaseline: TextBaseline.alphabetic,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Padding(
+                padding: EdgeInsets.only(
+                  top: 8,
+                  bottom: 4,
+                  left: 8,
+                ),
+                child: Text(
+                  '1. please select the crop. / براہ کرم فصل کا انتخاب کریں۔',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.only(
+                    bottom: 3,
+                    left: 8,
+                    right: 8,
+                  ),
                   child: DottedBorder(
                     color: kBeetleMainColor,
                     radius: const Radius.circular(20),
@@ -63,7 +81,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                           return RoundIconButton(
                             index: index,
                             onPressed: (index) {
-                              print(index);
+                              //print(index);
                             },
                             icon: 'assets/images/png_files/wheat.png',
                           );
@@ -75,10 +93,34 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                   ),
                 ),
               ),
+              Center(
+                  child: SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: const Divider(
+                  color: Colors.black,
+                ),
+              )),
+              const Padding(
+                padding: EdgeInsets.only(
+                  bottom: 4,
+                  left: 8,
+                ),
+                child: Text(
+                  '2. please upload the photo / براہ کرم تصویر اپ لوڈ کریں۔',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
               Expanded(
                 flex: 4,
                 child: Padding(
-                  padding: const EdgeInsets.all(9),
+                  padding: const EdgeInsets.only(
+                    bottom: 9,
+                    left: 9,
+                    right: 9,
+                  ),
                   child: GestureDetector(
                     onTap: () async {
                       var source = await ImagePickerTileBottomSheet
@@ -121,12 +163,12 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                   setState(() {
                     _progress = true;
                   });
-                  // dynamic imageEncoded = await image!.readAsBytes();
-                  // dynamic finalImage = base64Encode(imageEncoded);
-                  // Map<String, dynamic> details = {
-                  //   "crop": "pepper",
-                  //   'image': finalImage,
-                  // };
+                  dynamic imageEncoded = await image!.readAsBytes();
+                  String finalImage = base64Encode(imageEncoded);
+                  Map<String, String> details = {
+                    "crop": "pepper",
+                    'image': finalImage,
+                  };
 
                   // Response response =
                   //     await BeetleNetworking().getDetails(details);
@@ -143,8 +185,8 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const DiseaseResponse(
-                          responseBody: "x.toString()",
+                        return DiseaseResponse(
+                          details: details,
                         );
                       },
                     ),

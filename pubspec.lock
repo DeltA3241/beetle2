@@ -143,7 +143,7 @@ packages:
       name: flutter_login
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -195,7 +195,14 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.4+10"
+    version: "0.8.5"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+11"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -203,6 +210,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.6"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+11"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -258,7 +272,7 @@ packages:
       name: modal_bottom_sheet
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   modal_progress_hud_nsn:
     dependency: "direct main"
     description:
@@ -384,7 +398,7 @@ packages:
       name: record
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.4"
   record_platform_interface:
     dependency: transitive
     description:
@@ -515,7 +529,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -543,7 +557,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.1"
+    version: "2.5.1"
   xdg_directories:
     dependency: transitive
     description:

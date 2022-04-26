@@ -160,7 +160,7 @@ class _ForumCardState extends State<ForumCard> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             kPleaseWait,
                           );
-                          Response response = await BeetleNetworking().report(
+                          await BeetleNetworking().report(
                             widget.forumId,
                           );
                         },
