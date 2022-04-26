@@ -160,6 +160,10 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
             child: FloatingRoundIconButton(
                 icon: Icons.check,
                 onPressed: () async {
+                  if (image == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(kPleaseUpload);
+                    return;
+                  }
                   setState(() {
                     _progress = true;
                   });

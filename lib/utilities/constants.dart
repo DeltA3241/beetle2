@@ -47,7 +47,8 @@ const List<String> kMainpages = [
 ];
 const SnackBar kPleaseWaitImageMessage = SnackBar(
   content: Text(
-      'Please wait while image is loading / تصویر لوڈ ہونے تک انتظار کریں۔'),
+    'Please wait while image is loading / تصویر لوڈ ہونے تک انتظار کریں۔',
+  ),
   margin: EdgeInsets.only(
     top: 10,
     bottom: 20,
@@ -57,7 +58,9 @@ const SnackBar kPleaseWaitImageMessage = SnackBar(
   behavior: SnackBarBehavior.floating,
 );
 const SnackBar kPleaseWait = SnackBar(
-  content: Text('Please wait / انتظار کریں۔'),
+  content: Text(
+    'Please wait / انتظار کریں۔',
+  ),
   margin: EdgeInsets.only(
     top: 10,
     bottom: 100,
@@ -66,6 +69,19 @@ const SnackBar kPleaseWait = SnackBar(
   ),
   behavior: SnackBarBehavior.floating,
   duration: Duration(milliseconds: 1000),
+);
+const SnackBar kPleaseUpload = SnackBar(
+  content: Text(
+    'Please select a photo and crop. / براہ کرم ایک تصویر منتخب کریں اور تراشیں۔',
+  ),
+  margin: EdgeInsets.only(
+    top: 10,
+    bottom: 100,
+    left: 10,
+    right: 10,
+  ),
+  behavior: SnackBarBehavior.floating,
+  duration: Duration(milliseconds: 3000),
 );
 const SnackBar kDoneSnackBar = SnackBar(
   content: Text('Done / ہو گیا'),
