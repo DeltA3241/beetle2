@@ -13,7 +13,16 @@ import '../utilities/beetle_networking.dart';
 import 'custom_widgets/search_bar.dart';
 
 class NewForum extends StatefulWidget {
-  const NewForum({Key? key}) : super(key: key);
+  final TextEditingController? titleController;
+  final TextEditingController? descriptionController;
+  final XFile? image;
+
+  const NewForum({
+    this.descriptionController,
+    this.image,
+    this.titleController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NewForum> createState() => _NewForumState();
@@ -25,6 +34,9 @@ class _NewForumState extends State<NewForum> {
   String title = ' ';
   String description = ' ';
   Widget option(image) {
+    if (widget.image != null) {
+      image = widget.image;
+    }
     return image == null
         ? const Icon(
             Icons.add_a_photo_outlined,
@@ -56,6 +68,7 @@ class _NewForumState extends State<NewForum> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SearchBar(
+              textEditingController: widget.titleController,
               label: 'Title',
               icon: Icons.menu,
               onChanged: (value) {
@@ -66,6 +79,7 @@ class _NewForumState extends State<NewForum> {
               height: 10,
             ),
             DescriptionTextField(
+              textEditingController: widget.descriptionController,
               label: 'Description',
               icon: Icons.message_outlined,
               onChanged: (value) {

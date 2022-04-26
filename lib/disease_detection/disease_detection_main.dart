@@ -54,7 +54,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                 child: Text(
                   '1. please select the crop. / براہ کرم فصل کا انتخاب کریں۔',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -108,7 +108,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                 child: Text(
                   '2. please upload the photo / براہ کرم تصویر اپ لوڈ کریں۔',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -190,6 +190,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                     MaterialPageRoute(
                       builder: (context) {
                         return DiseaseResponse(
+                          image: image,
                           details: details,
                         );
                       },

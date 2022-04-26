@@ -2,11 +2,18 @@ import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../custom_widgets/rounded_text_button.dart';
+import '../forum/new_forum.dart';
 
 class DiseaseResponse extends StatefulWidget {
   final Map<String, String> details;
+  final XFile? image;
   const DiseaseResponse({
     Key? key,
+    required this.image,
     required this.details,
   }) : super(key: key);
 
@@ -50,37 +57,54 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
               ),
               Expanded(
                 flex: 1,
-                child: Container(
-                  margin: const EdgeInsets.only(
+                child: Padding(
+                  padding: const EdgeInsets.only(
                     left: 10,
                     right: 10,
                     bottom: 10,
                   ),
-                  decoration: kForumCardDecoration.copyWith(
+                  child: DottedBorder(
                     color: kBeetleMainColor,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(10),
-                          decoration: kForumCardDecoration,
-                          child: const Center(
-                            child: Text('Post to Forum'),
-                          ),
-                        ),
+                    radius: const Radius.circular(20),
+                    borderType: BorderType.RRect,
+                    strokeWidth: 2,
+                    dashPattern: const [4, 5],
+                    child: Container(
+                      decoration: kForumCardDecoration.copyWith(
+                        color: Colors.orangeAccent,
                       ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(10),
-                          decoration: kForumCardDecoration,
-                          child: const Center(
-                            child: Text('Show Products'),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButtonRoundedEdges(
+                            onPressed: () {
+                              showMaterialModalBottomSheet(
+                                backgroundColor: const Color(0x00c7bab9),
+                                context: context,
+                                builder: (context) {
+                                  TextEditingController title =
+                                      TextEditingController();
+                                  title.text = "hello";
+                                  TextEditingController description =
+                                      TextEditingController();
+                                  description.text = "world";
+                                  return NewForum(
+                                    image: widget.image,
+                                    titleController: title,
+                                    descriptionController: description,
+                                  );
+                                },
+                              );
+                            },
+                            text: 'Post on Forum',
                           ),
-                        ),
-                      )
-                    ],
+                          TextButtonRoundedEdges(
+                            onPressed: () {},
+                            text: 'Show Products',
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               )
