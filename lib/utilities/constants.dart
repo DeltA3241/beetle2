@@ -109,9 +109,9 @@ const kVoiceremovedSnackBar = SnackBar(
   behavior: SnackBarBehavior.floating,
 );
 const EdgeInsets kpaddingSearchBar = EdgeInsets.only(
-  top: 20,
+  top: 10,
   left: 10,
-  right: 10,
+  //right: 10,
   bottom: 10,
 );
 

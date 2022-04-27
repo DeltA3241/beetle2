@@ -131,13 +131,21 @@ class _NewForumState extends State<NewForum> {
                 });
                 dynamic imageBytes;
                 dynamic encodedImage;
+                if (widget.image != null) {
+                  image = widget.image;
+                }
                 if (image == null) {
                   encodedImage = null;
                 } else {
                   imageBytes = await image!.readAsBytes();
                   encodedImage = base64Encode(imageBytes);
                 }
-
+                if (widget.titleController != null) {
+                  title = widget.titleController!.value.text;
+                }
+                if (widget.descriptionController != null) {
+                  description = widget.descriptionController!.value.text;
+                }
                 Map<String, dynamic> forumDetails = {
                   'title': title,
                   'description': description,

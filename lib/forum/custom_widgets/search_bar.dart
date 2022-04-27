@@ -24,7 +24,7 @@ class SearchBar extends StatelessWidget {
         ),
         //labelStyle: const TextStyle(color: Colors.orange),
         constraints: BoxConstraints.loose(
-          const Size(double.infinity, 40),
+          const Size(double.infinity, 50),
         ),
         prefixIcon: Icon(
           icon,

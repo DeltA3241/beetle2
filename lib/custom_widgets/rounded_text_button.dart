@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 
 class TextButtonRoundedEdges extends StatelessWidget {
-  final String text;
-  final void Function() onPressed;
+  final String? text;
+  final void Function()? onPressed;
   const TextButtonRoundedEdges({
     required this.onPressed,
     required this.text,
@@ -19,11 +19,11 @@ class TextButtonRoundedEdges extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.all(10),
           decoration: kForumCardDecoration.copyWith(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
             color: kBeetleMainColor,
           ),
           child: Center(
-            child: Text(text),
+            child: Text(text!),
           ),
         ),
       ),

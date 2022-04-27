@@ -14,6 +14,7 @@ class ForumMain extends StatefulWidget {
 }
 
 class _ForumMainState extends State<ForumMain> {
+  bool pressed = true;
   String search = '';
   @override
   Widget build(BuildContext context) {
@@ -55,9 +56,11 @@ class _ForumMainState extends State<ForumMain> {
                   floating: true,
                   pinned: false,
                   delegate: DelegateForumMain(
+                    text: pressed ? "Search" : "Back",
                     onPressed: () {
                       setState(
                         () {
+                          pressed = !pressed;
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       );
