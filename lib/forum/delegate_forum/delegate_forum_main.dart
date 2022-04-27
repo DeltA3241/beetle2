@@ -8,10 +8,12 @@ class DelegateForumMain extends SliverPersistentHeaderDelegate {
   void Function(String value)? onChanged;
   void Function()? onPressed;
   String? text;
+  TextEditingController searchController;
   DelegateForumMain({
     required this.onChanged,
     required this.onPressed,
     this.text,
+    required this.searchController,
   });
 
   @override
@@ -29,6 +31,7 @@ class DelegateForumMain extends SliverPersistentHeaderDelegate {
             child: Padding(
               padding: kpaddingSearchBar,
               child: SearchBar(
+                textEditingController: searchController,
                 label: 'Search Post / پوسٹ تلاش کریں',
                 icon: Icons.search,
                 onChanged: onChanged,

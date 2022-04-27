@@ -14,6 +14,7 @@ class ForumMain extends StatefulWidget {
 }
 
 class _ForumMainState extends State<ForumMain> {
+  TextEditingController searchController = TextEditingController();
   bool pressed = true;
   String search = '';
   @override
@@ -56,12 +57,16 @@ class _ForumMainState extends State<ForumMain> {
                   floating: true,
                   pinned: false,
                   delegate: DelegateForumMain(
+                    searchController: searchController,
                     text: pressed ? "Search" : "Back",
                     onPressed: () {
                       setState(
                         () {
                           pressed = !pressed;
                           FocusScope.of(context).requestFocus(FocusNode());
+                          if (search == '') {
+                            searchController.clear();
+                          }
                         },
                       );
                     },
