@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:lottie/lottie.dart';
 
 class ForumCard extends StatefulWidget {
   final String title;
@@ -63,8 +64,13 @@ class _ForumCardState extends State<ForumCard> {
               ),
             );
           } else {
-            widget = const Center(
-              child: CircularProgressIndicator(color: Colors.red),
+            widget = Center(
+              //child: CircularProgressIndicator(color: Colors.red),
+              child: Lottie.asset(
+                kBeetleloading,
+                height: 100,
+                width: 100,
+              ),
             );
           }
           return widget;

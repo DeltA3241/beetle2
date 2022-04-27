@@ -1,10 +1,14 @@
+import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class ProfileMain extends StatelessWidget {
   const ProfileMain({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Text('profile');
+    return Center(
+      child: Lottie.asset(kComingSoon),
+    );
   }
 }

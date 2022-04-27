@@ -21,6 +21,9 @@ const TextStyle kForumTitleTextStyle = TextStyle(
 );
 
 const String kBeetleImagePath = 'assets/images/png_files/Beetle_FULL.png';
+const String kWalkingPlant = 'assets/lottie_animations/walking_plant.json';
+const String kBeetleloading = 'assets/lottie_animations/beetle.json';
+const String kComingSoon = 'assets/lottie_animations/coming_soon.json';
 
 const AssetImage kBeetleFullLogo = AssetImage(
   kBeetleImagePath,

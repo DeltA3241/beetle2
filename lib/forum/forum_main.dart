@@ -3,7 +3,9 @@ import 'package:beetle/custom_widgets/floating_round_icon_button.dart';
 import 'package:beetle/forum/delegate_forum/delegate_forum_main.dart';
 import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import '../utilities/constants.dart';
 import 'custom_widgets/forum_card.dart';
 
 class ForumMain extends StatefulWidget {
@@ -45,9 +47,10 @@ class _ForumMainState extends State<ForumMain> {
                 ),
               );
             } else {
-              sliverList = const SliverToBoxAdapter(
+              sliverList = SliverToBoxAdapter(
                 child: Center(
-                  child: CircularProgressIndicator(color: Colors.orange),
+                  //child: CircularProgressIndicator(color: Colors.orange),
+                  child: Lottie.asset(kWalkingPlant),
                 ),
               );
             }

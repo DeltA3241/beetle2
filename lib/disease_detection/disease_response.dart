@@ -4,7 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
+import 'package:lottie/lottie.dart';
 import '../custom_widgets/rounded_text_button.dart';
 import '../forum/new_forum.dart';
 
@@ -29,10 +29,13 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
       body: FutureBuilder<dynamic>(
         future: BeetleNetworking().getDetails(widget.details),
         builder: (context, details) {
-          String text = '';
-          if (details.hasData) {
-            text = details.data.toString();
-          }
+          Widget widgetToshow = details.hasData
+              ? Text(
+                  details.data.toString(),
+                )
+              : Lottie.asset(
+                  kWalkingPlant,
+                );
           return Column(
             children: [
               Expanded(
@@ -49,7 +52,7 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
                       padding: const EdgeInsets.all(15),
                       decoration: kForumCardDecoration,
                       child: Center(
-                        child: Text(text),
+                        child: widgetToshow,
                       ),
                     ),
                   ),
