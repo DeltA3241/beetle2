@@ -1,3 +1,4 @@
+import 'package:beetle/disease_detection/custom_widgets/response_analyser.dart';
 import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:beetle/utilities/constants.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -24,17 +25,23 @@ class DiseaseResponse extends StatefulWidget {
 class _DiseaseResponseState extends State<DiseaseResponse> {
   @override
   Widget build(BuildContext context) {
+    bool showProducts = false;
     return Scaffold(
       appBar: kBeetleAppBar,
       body: FutureBuilder<dynamic>(
         future: BeetleNetworking().getDetails(widget.details),
         builder: (context, details) {
+          if (details.hasData) {
+            showProducts = details.data['items_found'];
+          }
           Widget widgetToshow = details.hasData
-              ? Text(
-                  details.data.toString(),
+              ? ResponseAnalyser(
+                  diseaseDetails: details.data,
                 )
-              : Lottie.asset(
-                  kWalkingPlant,
+              : Center(
+                  child: Lottie.asset(
+                    kWalkingPlant,
+                  ),
                 );
           return Column(
             children: [
@@ -50,10 +57,9 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
                     dashPattern: const [4, 5],
                     child: Container(
                       padding: const EdgeInsets.all(15),
+                      width: double.infinity,
                       decoration: kForumCardDecoration,
-                      child: Center(
-                        child: widgetToshow,
-                      ),
+                      child: widgetToshow,
                     ),
                   ),
                 ),
@@ -101,9 +107,12 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
                             },
                             text: 'Post on Forum',
                           ),
-                          TextButtonRoundedEdges(
-                            onPressed: () {},
-                            text: 'Show Products',
+                          Visibility(
+                            visible: showProducts,
+                            child: TextButtonRoundedEdges(
+                              onPressed: () {},
+                              text: 'Show Products',
+                            ),
                           ),
                         ],
                       ),

@@ -24,10 +24,28 @@ const String kBeetleImagePath = 'assets/images/png_files/Beetle_FULL.png';
 const String kWalkingPlant = 'assets/lottie_animations/walking_plant.json';
 const String kBeetleloading = 'assets/lottie_animations/beetle.json';
 const String kComingSoon = 'assets/lottie_animations/coming_soon.json';
+const String kHealthyPlant = 'assets/lottie_animations/healthy_plant.json';
 
 const AssetImage kBeetleFullLogo = AssetImage(
   kBeetleImagePath,
 );
+
+const TextStyle kDiseaseTitleTextStyle = TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.w300,
+  color: Colors.black,
+);
+const TextStyle kDiseaseDescriptionTextStyle = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w200,
+  color: Colors.black,
+);
+// const TextStyle kDiseaseDescriptionTextStyleUrdu = TextStyle(
+//   fontFamily: 'NotoNastaliq',
+//   fontSize: 20,
+//   fontWeight: FontWeight.w200,
+//   color: Colors.black,
+// );
 
 const Color kBeetleMainColor = Color(0xffff420e);
 
