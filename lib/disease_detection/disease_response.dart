@@ -1,6 +1,7 @@
 import 'package:beetle/disease_detection/custom_widgets/response_analyser.dart';
 import 'package:beetle/utilities/beetle_networking.dart';
 import 'package:beetle/utilities/constants.dart';
+import 'package:beetle/utilities/crop_details.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,8 +13,10 @@ import '../forum/new_forum.dart';
 class DiseaseResponse extends StatefulWidget {
   final Map<String, String> details;
   final XFile? image;
+  final String crop;
   const DiseaseResponse({
     Key? key,
+    required this.crop,
     required this.image,
     required this.details,
   }) : super(key: key);
@@ -23,6 +26,10 @@ class DiseaseResponse extends StatefulWidget {
 }
 
 class _DiseaseResponseState extends State<DiseaseResponse> {
+  TextEditingController title = TextEditingController();
+  CropDetails cropDetails = CropDetails();
+  TextEditingController description = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     bool showProducts = false;
@@ -33,9 +40,16 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
         builder: (context, details) {
           if (details.hasData) {
             showProducts = details.data['items_found'];
+            title.text = cropDetails.getTitle(widget.crop);
+            description.text = cropDetails.getDeatils(
+              widget.crop,
+              details.data['prediction'],
+              details.data['disease_details']['symptoms'][0],
+            );
           }
           Widget widgetToshow = details.hasData
               ? ResponseAnalyser(
+                  image: widget.image,
                   diseaseDetails: details.data,
                 )
               : Center(
@@ -91,12 +105,6 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
                                 backgroundColor: const Color(0x00c7bab9),
                                 context: context,
                                 builder: (context) {
-                                  TextEditingController title =
-                                      TextEditingController();
-                                  title.text = "hello";
-                                  TextEditingController description =
-                                      TextEditingController();
-                                  description.text = "world";
                                   return NewForum(
                                     image: widget.image,
                                     titleController: title,

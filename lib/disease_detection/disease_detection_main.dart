@@ -5,6 +5,7 @@ import 'package:beetle/custom_widgets/floating_round_icon_button.dart';
 import 'package:beetle/custom_widgets/round_icon_button.dart';
 import 'package:beetle/disease_detection/disease_response.dart';
 import 'package:beetle/utilities/constants.dart';
+import 'package:beetle/utilities/crop_details.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,6 +22,7 @@ class DiseaseDetectionMain extends StatefulWidget {
 class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
   XFile? image;
   bool _progress = false;
+  String crop = '';
   Widget option(image) {
     return image == null
         ? const Icon(
@@ -28,9 +30,12 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
             color: kBeetleMainColor,
             size: 200,
           )
-        : Image.file(
-            File(image!.path),
-            fit: BoxFit.contain,
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.file(
+              File(image!.path),
+              fit: BoxFit.contain,
+            ),
           );
   }
 
@@ -81,7 +86,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                           return RoundIconButton(
                             index: index,
                             onPressed: (index) {
-                              //print(index);
+                              crop = CropDetails().getCrop(index);
                             },
                             icon: 'assets/images/png_files/wheat.png',
                           );
@@ -144,6 +149,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                       child: Container(
                         width: double.infinity,
                         decoration: kForumCardDecoration,
+                        padding: const EdgeInsets.all(5),
                         child: Center(
                           child: option(image),
                         ),
@@ -170,7 +176,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                   dynamic imageEncoded = await image!.readAsBytes();
                   String finalImage = base64Encode(imageEncoded);
                   Map<String, String> details = {
-                    "crop": "pepper",
+                    "crop": crop,
                     'image': finalImage,
                   };
 
@@ -190,6 +196,7 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                     MaterialPageRoute(
                       builder: (context) {
                         return DiseaseResponse(
+                          crop: crop,
                           image: image,
                           details: details,
                         );

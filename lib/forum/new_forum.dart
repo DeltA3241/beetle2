@@ -43,9 +43,12 @@ class _NewForumState extends State<NewForum> {
             color: Colors.black,
             size: 70,
           )
-        : Image.file(
-            File(image!.path),
-            fit: BoxFit.contain,
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.file(
+              File(image!.path),
+              fit: BoxFit.contain,
+            ),
           );
   }
 
@@ -99,8 +102,11 @@ class _NewForumState extends State<NewForum> {
                 child: Container(
                   width: double.infinity,
                   height: 200,
+                  padding: const EdgeInsets.all(5),
                   decoration: kCommentCardDecoration,
-                  child: option(image),
+                  child: Center(
+                    child: option(image),
+                  ),
                 ),
               ),
               onTap: () async {
