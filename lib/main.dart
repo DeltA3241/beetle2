@@ -5,11 +5,11 @@ import 'package:beetle/utilities/constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Beetle());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Beetle extends StatelessWidget {
+  const Beetle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
