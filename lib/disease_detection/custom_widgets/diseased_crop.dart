@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 
 class DiseasedCrop extends StatelessWidget {
   final XFile? image;
@@ -12,6 +13,99 @@ class DiseasedCrop extends StatelessWidget {
     required this.diseaseDetails,
     required this.image,
   }) : super(key: key);
+
+  List<Widget> createWidgets() {
+    List<Widget> response = [];
+
+    response.add(
+      UrduTextWidget(
+        title: ':علامات\n',
+        description: diseaseDetails['disease_details']['symptoms'][0],
+      ),
+    );
+    response.add(
+      UrduTextWidget(
+        title: ': نامیاتی کو کنٹرول کریں\n',
+        description: diseaseDetails['disease_details']['control_organic'],
+      ),
+    );
+    response.add(
+      UrduTextWidget(
+        title: ':سائنسی نام\n',
+        description: diseaseDetails['disease_details']['pest_scientific_name'],
+      ),
+    );
+    response.add(
+      Align(
+        alignment: Alignment.centerRight,
+        child: RichText(
+          textAlign: TextAlign.end,
+          text: const TextSpan(
+            text: ': کنٹرول مصنوعات',
+            style: kDiseaseTitleTextStyle,
+          ),
+        ),
+      ),
+    );
+    for (String products in diseaseDetails['disease_details']
+        ['control_products']) {
+      response.add(
+        Card(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Lottie.asset(
+                  kProductBag,
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+              const SizedBox(
+                width: 3,
+              ),
+              Text(
+                products,
+                style: kDiseaseDescriptionTextStyle,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    response.add(
+      Align(
+        alignment: Alignment.centerRight,
+        child: RichText(
+          textAlign: TextAlign.end,
+          text: const TextSpan(
+            text: ': علاج کی دوا',
+            style: kDiseaseTitleTextStyle,
+          ),
+        ),
+      ),
+    );
+    for (String med in diseaseDetails['disease_details']['control_chemicals']) {
+      response.add(
+        Card(
+          child: Row(
+            children: [
+              Lottie.asset(
+                kDisinfectantSpray,
+                width: 50,
+                height: 50,
+              ),
+              Text(
+                med,
+                style: kDiseaseDescriptionTextStyle,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,61 +179,40 @@ class DiseasedCrop extends StatelessWidget {
         ),
         Expanded(
           child: ListView(
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: RichText(
-                  textAlign: TextAlign.end,
-                  text: TextSpan(
-                    text: ':علامات\n',
-                    style: kDiseaseTitleTextStyle,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: diseaseDetails['disease_details']['symptoms'][0],
-                        style: kDiseaseDescriptionTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: RichText(
-                  textAlign: TextAlign.end,
-                  text: TextSpan(
-                    text: ': نامیاتی کو کنٹرول کریں\n',
-                    style: kDiseaseTitleTextStyle,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: diseaseDetails['disease_details']
-                            ['control_organic'],
-                        style: kDiseaseDescriptionTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: RichText(
-                  textAlign: TextAlign.end,
-                  text: TextSpan(
-                    text: ': علاج کی دوا\n',
-                    style: kDiseaseTitleTextStyle,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: diseaseDetails['disease_details']
-                            ['control_chemicals'][0],
-                        style: kDiseaseDescriptionTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            children: createWidgets(),
           ),
         )
       ],
+    );
+  }
+}
+
+class UrduTextWidget extends StatelessWidget {
+  final String title;
+  final String description;
+  const UrduTextWidget({
+    required this.title,
+    required this.description,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: RichText(
+        textAlign: TextAlign.end,
+        text: TextSpan(
+          text: title,
+          style: kDiseaseTitleTextStyle,
+          children: <TextSpan>[
+            TextSpan(
+              text: description,
+              style: kDiseaseDescriptionTextStyle,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -25,6 +25,8 @@ const String kWalkingPlant = 'assets/lottie_animations/walking_plant.json';
 const String kBeetleloading = 'assets/lottie_animations/beetle.json';
 const String kComingSoon = 'assets/lottie_animations/coming_soon.json';
 const String kHealthyPlant = 'assets/lottie_animations/healthy_plant.json';
+const String kDisinfectantSpray = 'assets/lottie_animations/spray.json';
+const String kProductBag = 'assets/lottie_animations/product_bag.json';
 
 const AssetImage kBeetleFullLogo = AssetImage(
   kBeetleImagePath,
