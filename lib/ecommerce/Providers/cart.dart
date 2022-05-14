@@ -1,14 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class cart_item {
   final String id;
+  final String storeid;
   final String title;
   final int quantity;
-  final double price;
-  final String imgurl;
+  final int price;
+  final Image imgurl;
+  final bool iscrediavail;
 
-
-  cart_item({ required this.id, required this.title, required this.quantity, required this.price, required this.imgurl});
+  cart_item({ required this.id, required this.title, required this.quantity, required this.price, required this.imgurl, required this.iscrediavail, required this.storeid});
 
 
 }
@@ -23,8 +24,8 @@ class cart with ChangeNotifier{
     return  _items.length;
 
   }
-  double  get getAmount{
-    double total = 0 ;
+  int  get getAmount{
+    int total = 0 ;
     _items.forEach((key, value) {
       total = total + value.price * value.quantity;
     });
@@ -33,19 +34,24 @@ class cart with ChangeNotifier{
   }
 
 
-  void add_items( String product_id, String product_title, double product_price, String url){
+
+  void add_items( String product_id, String product_title, int product_price, bool isc, Image url, String sid ,{int q1 =  1 }){
   if(_items.containsKey(product_id)){
-     _items.update(product_id, (existCartItem) => cart_item(id: existCartItem.id, title: existCartItem.title, quantity: existCartItem.quantity + 1, price: existCartItem.price, imgurl: url));
+    if(q1 == 1){
+      _items.update(product_id, (existCartItem) => cart_item(id: existCartItem.id, title: existCartItem.title, quantity: existCartItem.quantity + 1, price: existCartItem.price, imgurl: url, iscrediavail: isc, storeid: sid));
+    }
+    else{
+      _items.update(product_id, (existCartItem) => cart_item(id: existCartItem.id, title: existCartItem.title, quantity: existCartItem.quantity + q1, price: existCartItem.price, imgurl: url, iscrediavail: isc,storeid: sid));
+    }
   }
   else{
-    _items.putIfAbsent(product_id, () => cart_item(id: DateTime.now().toString(), title: product_title, quantity: 1, price: product_price, imgurl: url));
+    _items.putIfAbsent(product_id, () => cart_item(id: DateTime.now().toString(), title: product_title, quantity: q1, price: product_price, imgurl: url, iscrediavail: isc,storeid: sid));
   }
   notifyListeners();
 
   }
 
   void remove_items(String productId){
-
     _items.removeWhere((key, value) => key == productId);
     notifyListeners();
   }
@@ -58,7 +64,7 @@ class cart with ChangeNotifier{
   void remove_singleitem(String productID){
 
     if( _items[productID]!.quantity >1){
-      _items.update(productID, (value) => cart_item(id: value.id, title: value.title, quantity: value.quantity - 1, price: value.price, imgurl: value.imgurl));
+      _items.update(productID, (value) => cart_item(id: value.id, title: value.title, quantity: value.quantity - 1, price: value.price, imgurl: value.imgurl, iscrediavail: value.iscrediavail,storeid: value.storeid));
     }
     else{
       _items.remove(productID);

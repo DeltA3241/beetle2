@@ -5,12 +5,14 @@ import 'package:provider/provider.dart';
 
 class cart_item1 extends StatelessWidget {
   final String id;
+  final String storeid;
   final String title;
   final int quantity;
-  final double price;
-  final String imgurl;
+  final int price;
+  Image imgurl;
   final String product_id;
-  cart_item1( {required this.id, required this.title, required this.quantity, required this.price, required this.imgurl, required this.product_id});
+  final bool iscreditaval;
+  cart_item1( this.imgurl, {required this.id, required this.title, required this.quantity, required this.price, required this.product_id, required this.iscreditaval, required this.storeid,} );
 
 
 
@@ -33,17 +35,17 @@ class cart_item1 extends StatelessWidget {
       ),
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction){
-        return showDialog(context: context  , builder: (ctx) => AlertDialog( title: Text("Are you sure ?"), content: Text("Do you want to remove this item from the cart?",),actions: [
+        return showDialog(context: context , builder: (ctx) => AlertDialog( title: Text("Are you sure ?"), content: Text("Do you want to remove this item from the cart?",),actions: [
           FlatButton(onPressed: (){
-            Navigator.of(context).pop(false);
-
+            Navigator.of(ctx).pop(false);
           }, child: Text("No")),
           FlatButton(onPressed: (){
-            Navigator.of(context).pop(true);
+            Navigator.of(ctx).pop(true);
           }, child: Text("Yes")),
         ],));
       },
       onDismissed: (direction){
+        print(direction);
        Provider.of<cart>(context, listen: false).remove_items(product_id);
       },
 
@@ -57,7 +59,7 @@ class cart_item1 extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListTile(
-            leading: CircleAvatar(backgroundImage: NetworkImage(imgurl), backgroundColor: Colors.transparent,),
+            leading: CircleAvatar(backgroundImage: imgurl.image, backgroundColor: Colors.transparent,),
             title: Text(title),
             subtitle: Text('Total: Rs ${price * quantity}') ,
             trailing: Text('$quantity x'),

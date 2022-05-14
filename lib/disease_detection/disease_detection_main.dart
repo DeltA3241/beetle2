@@ -88,7 +88,6 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                             index: index,
                             onPressed: (index) {
                               crop = cropDetails.getCrop(index);
-                              print(crop);
                             },
                             icon:
                                 'assets/images/png_files/${cropDetails.getCrop(index)}.png',
@@ -182,15 +181,6 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                     "crop": crop,
                     'image': finalImage,
                   };
-
-                  // Response response =
-                  //     await BeetleNetworking().getDetails(details);
-                  // if (response.statusCode == 200) {
-                  //   dynamic x = jsonDecode(
-                  //     utf8.decode(
-                  //       response.bodyBytes,
-                  //     ),
-                  //   );
                   setState(() {
                     _progress = false;
                   });

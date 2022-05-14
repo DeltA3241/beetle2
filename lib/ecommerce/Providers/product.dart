@@ -1,12 +1,19 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class product with ChangeNotifier{
   final String id;
+  final String storeid;
   final String title;
   final String descrip;
-  final double price;
-  final String imgurl;
+  final Image imgurl;
+  final String category;
+  final int price;
+  final int quant;
   bool isfavourite;
+  bool iscreditavailable;
 
 
   product({
@@ -15,6 +22,10 @@ class product with ChangeNotifier{
     required this.descrip,
     required this.price,
     required this.imgurl,
+    required this.quant,
+    required this.category,
+    required this.storeid,
+    required this.iscreditavailable,
     this.isfavourite = false,
   });
 

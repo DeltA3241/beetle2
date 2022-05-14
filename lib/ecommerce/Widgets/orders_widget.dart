@@ -25,7 +25,7 @@ class _orders_widgetState extends State<orders_widget> {
       child: Column(
         children : [ListTile(
           title: Text('Rs${widget.order.amount.toStringAsFixed(2)}'),
-          subtitle: Text(DateFormat('dd MM yyyy hh:mm').format(widget.order.dateTime)),
+          subtitle: Text(widget.order.dateTime),
           trailing: IconButton( icon: Icon( isexpanded? Icons.expand_less :Icons.expand_more), onPressed: (){
             setState(() {
               isexpanded = !isexpanded;

@@ -1,58 +1,124 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'product.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io' as Io;
 
-class Products with ChangeNotifier{
-  List <product> _items = [
-    product(
-      id: 'p1',
-      title: 'Red Shirt',
-      descrip: 'A red shirt - it is pretty red!',
-      price: 29.99,
-      imgurl:
-      'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-    ),
-    product(
-      id: 'p2',
-      title: 'Trousers',
-      descrip: 'A nice pair of trousers.',
-      price: 59.99,
-      imgurl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
-    ),
-    product(
-      id: 'p3',
-      title: 'Yellow Scarf',
-      descrip: 'Warm and cozy - exactly what you need for the winter.',
-      price: 19.99,
-      imgurl:
-      'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
-    ),
-    product(
-      id: 'p4',
-      title: 'A Pan',
-      descrip: 'Prepare any meal you want.',
-      price: 49.99,
-      imgurl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
-    ),
-  ];
+class Products with ChangeNotifier {
+  List<product> items = [];
+  List<product> disease_items = [];
+  List<product> search_items = [];
+  Map<String, dynamic> dict = {};
 
- List <product> get get_items{
-   return [..._items];
-}
+  List<product> get get_items {
+    return [...items];
+  }
 
+  Future<void> fetchdata() async {
+    var uri = Uri.parse('https://beetle-shop.azurewebsites.net/shop/items');
 
+    try {
+      final response = await http.get(uri);
+      final extract = jsonDecode(response.body) as List<dynamic>;
+      final List<product> loadedproducts = [];
+      for (int x = 0; x < extract.length; ++x) {
+        var uri2 = Uri.parse(
+            'https://beetle-shop.azurewebsites.net/shop/image/${extract[x]['image']}');
+        final response2 = await http.get(uri2);
+        final extract2 = jsonDecode(response2.body) as Map<dynamic, dynamic>;
+        final decodedBytes = base64Decode(extract2['image']);
+        Image i1 = Image.memory(decodedBytes);
+        loadedproducts.add(product(
+          id: extract[x]['id'],
+          title: extract[x]['name'],
+          descrip: extract[x]['description'],
+          storeid: extract[x]['store'],
+          price: extract[x]['price'],
+          category: extract[x]['category'],
+          iscreditavailable: extract[x]['credit_available'],
+          quant: extract[x]['quantity'],
+          isfavourite: false,
+          imgurl: i1,
+        ));
+        items = loadedproducts;
+        notifyListeners();
+      }
+    } catch (error) {
+      throw (error);
+    }
+  }
 
-void addProduct(){
+  Future<void> addProduct(List<dynamic> products) async {
+    final List<product> loadedproducts = [];
+    for (int x = 0; x < products.length; ++x) {
+      var uri2 = Uri.parse(
+          'https://beetle-shop.azurewebsites.net/shop/image/${products[x]['image']}');
+      final response2 = await http.get(uri2);
+      final extract2 = jsonDecode(response2.body) as Map<dynamic, dynamic>;
+      final decodedBytes = base64Decode(extract2['image']);
+      Image i1 = Image.memory(decodedBytes);
+      loadedproducts.add(product(
+        id: products[x]['id'],
+        title: products[x]['name'],
+        descrip: products[x]['description'],
+        storeid: products[x]['store'],
+        price: products[x]['price'],
+        category: products[x]['category'],
+        iscreditavailable: products[x]['credit_available'],
+        quant: products[x]['quantity'],
+        isfavourite: false,
+        imgurl: i1,
+      ));
+    }
 
-   notifyListeners();
-}
+    disease_items = loadedproducts;
 
-product findproduct( var product_id){
-   return _items.firstWhere((item) => item.id == product_id );
-}
+    notifyListeners();
+  }
 
+  product findproduct(var product_id) {
+    return items.firstWhere((item) => item.id == product_id);
+  }
 
+  Future<void> searchproduct(String s) async {
+    final List<product> temp = [];
+    var uri = Uri.parse(
+        'https://beetle-shop.azurewebsites.net/shop/items?search=${s}&sort=price&order=asc');
+    try {
+      final response = await http.get(uri);
+      if (jsonDecode(response.body).runtimeType == dict.runtimeType) {
+        search_items.clear();
+        notifyListeners();
+      } else {
+        final extract = jsonDecode(response.body) as List<dynamic>;
+        for (int x = 0; x < extract.length; ++x) {
+          var uri2 = Uri.parse(
+              'https://beetle-shop.azurewebsites.net/shop/image/${extract[x]['image']}');
+          final response2 = await http.get(uri2);
+          final extract2 = jsonDecode(response2.body) as Map<dynamic, dynamic>;
+          final decodedBytes = base64Decode(extract2['image']);
+          Image i1 = Image.memory(decodedBytes);
+          temp.add(product(
+            id: extract[x]['id'],
+            title: extract[x]['name'],
+            descrip: extract[x]['description'],
+            storeid: extract[x]['store'],
+            price: extract[x]['price'],
+            category: extract[x]['category'],
+            iscreditavailable: extract[x]['credit_available'],
+            quant: extract[x]['quantity'],
+            isfavourite: false,
+            imgurl: i1,
+          ));
 
-
+          search_items = temp;
+          notifyListeners();
+        }
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 }

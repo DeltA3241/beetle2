@@ -170,28 +170,33 @@ class BeetleNetworking {
   Future<http.Response> report(String id) async {
     String basicAuth = this.basicAuth(global.username, global.password);
     http.Response response = await http.post(
-        Uri.parse('$kBaseUrlForum/comments/report'),
-        headers: <String, String>{
-          'authorization': basicAuth,
-          'Accept': 'application/json'
-        },
-        body: jsonEncode(<String, String>{
+      Uri.parse('$kBaseUrlForum/comments/report'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Accept': 'application/json'
+      },
+      body: jsonEncode(
+        <String, String>{
           'comment_id': id,
-        }));
+        },
+      ),
+    );
     return response;
   }
 
   Future<dynamic> getDetails(Map<String, String> details) async {
-    //String basicAuth = this.basicAuth(global.username, global.password);
+    String basicAuth = this.basicAuth(global.username, global.password);
     http.Response response = await http.post(
-      Uri.parse('https://c4566fb8-73d5-400f-9c6c-57221bc951a1.mock.pstmn.io'),
+      Uri.parse(kDiseaseDetectionBaseURL),
       headers: <String, String>{
-        //'authorization': basicAuth,
+        'authorization': basicAuth,
         'Accept': 'application/json'
       },
       body: jsonEncode(details),
     );
-    return jsonDecode(response.body);
+    return jsonDecode(
+      utf8.decode(response.bodyBytes),
+    );
   }
 
   String basicAuth(String username, String password) {

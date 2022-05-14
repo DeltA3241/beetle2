@@ -4,6 +4,8 @@ import 'package:flutter_login/flutter_login.dart';
 const kBaseUrl = 'https://beetle-auth.azurewebsites.net/auth';
 const kBaseUrlForum =
     'https://beetle-discussion-forum.azurewebsites.net/beetle';
+const String kDiseaseDetectionBaseURL =
+    'http://aa00-121-52-146-244.ngrok.io/analytics/analyse';
 
 BorderRadius kBorderRadiusForumCards = BorderRadius.circular(20);
 BoxDecoration kForumCardDecoration = BoxDecoration(
