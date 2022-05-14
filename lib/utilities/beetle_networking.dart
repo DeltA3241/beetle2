@@ -93,6 +93,27 @@ class BeetleNetworking {
     return response;
   }
 
+  Future<dynamic> updatePassword(String password) async {
+    String basicAuth = this.basicAuth(global.username, global.password);
+    http.Response response = await http.post(
+      Uri.parse('$kBaseUrl/update/pass'),
+      headers: <String, String>{
+        'authorization': basicAuth,
+        'Accept': 'application/json',
+      },
+      body: jsonEncode(
+        <String, String>{
+          "update": password,
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return response.statusCode;
+    }
+  }
+
   Future<http.Response> updateComment(String forumId, String commentId,
       Map<String, String> updatedComment) async {
     String basicAuth = this.basicAuth(global.username, global.password);

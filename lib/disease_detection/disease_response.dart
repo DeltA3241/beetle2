@@ -32,6 +32,13 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
   TextEditingController title = TextEditingController();
   CropDetails cropDetails = CropDetails();
   TextEditingController description = TextEditingController();
+  late final dynamic response;
+
+  @override
+  void initState() {
+    super.initState();
+    response = BeetleNetworking().getDetails(widget.details);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +47,7 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
     return Scaffold(
       appBar: kBeetleAppBar,
       body: FutureBuilder<dynamic>(
-        future: BeetleNetworking().getDetails(widget.details),
+        future: response,
         builder: (context, details) {
           if (details.hasData) {
             if (details.data['prediction'] != 'Healthy') {

@@ -136,11 +136,14 @@ class product_detail_screen extends StatelessWidget {
                                       border: Border.all(
                                         color: Colors.white,
                                       )),
-                                  child: OutlineButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                    color: kBeetleMainColor,
+                                  child: OutlinedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: kBeetleMainColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                        ),
+                                        padding: EdgeInsets.zero),
                                     onPressed: () {
                                       carts.add_items(
                                           product.id,
@@ -302,11 +305,13 @@ class _CartCounterState extends State<CartCounter> {
             border: Border.all(
               color: Colors.white,
             )),
-        child: OutlineButton(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(13),
-          ),
+        child: OutlinedButton(
+          style: ElevatedButton.styleFrom(
+              primary: kBeetleMainColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
+              padding: EdgeInsets.zero),
           onPressed: press,
           child: Icon(
             icon,

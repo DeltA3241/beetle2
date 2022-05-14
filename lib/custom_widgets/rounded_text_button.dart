@@ -17,6 +17,7 @@ class TextButtonRoundedEdges extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Container(
+          height: 50,
           margin: const EdgeInsets.all(10),
           decoration: kForumCardDecoration.copyWith(
             borderRadius: BorderRadius.circular(20),
