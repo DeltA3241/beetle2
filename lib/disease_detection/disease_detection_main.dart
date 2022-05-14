@@ -20,6 +20,7 @@ class DiseaseDetectionMain extends StatefulWidget {
 }
 
 class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
+  CropDetails cropDetails = CropDetails();
   XFile? image;
   bool _progress = false;
   String crop = '';
@@ -86,12 +87,14 @@ class _DiseaseDetectionMainState extends State<DiseaseDetectionMain> {
                           return RoundIconButton(
                             index: index,
                             onPressed: (index) {
-                              crop = CropDetails().getCrop(index);
+                              crop = cropDetails.getCrop(index);
+                              print(crop);
                             },
-                            icon: 'assets/images/png_files/wheat.png',
+                            icon:
+                                'assets/images/png_files/${cropDetails.getCrop(index)}.png',
                           );
                         },
-                        itemCount: 10,
+                        itemCount: cropDetails.getCropCount(),
                         scrollDirection: Axis.horizontal,
                       ),
                     ),

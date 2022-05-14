@@ -1,12 +1,12 @@
 class CropDetails {
   final List<String> _crops = [
     'pepper',
-    'banana',
-    'wheat',
-    'capsicum',
+    'potato',
+    'citrus',
+    'tomato',
   ];
   String getCrop(int index) {
-    return _crops[index % 3];
+    return _crops[index];
   }
 
   String getDeatils(String crop, String disease, String description) {
@@ -15,5 +15,9 @@ class CropDetails {
 
   String getTitle(String crop) {
     return 'Advise needed for crop $crop';
+  }
+
+  int getCropCount() {
+    return _crops.length;
   }
 }
