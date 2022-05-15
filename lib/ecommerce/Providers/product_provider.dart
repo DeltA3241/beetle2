@@ -53,8 +53,7 @@ class Products with ChangeNotifier {
   Future<void> addProduct(List<dynamic> products) async {
     final List<product> loadedproducts = [];
     for (int x = 0; x < products.length; ++x) {
-      var uri2 = Uri.parse(
-          'https://beetle-shop.azurewebsites.net/shop/image/${products[x]['image']}');
+      var uri2 = Uri.parse('https://beetle-shop.azurewebsites.net/shop/image/${products[x]['image']}');
       final response2 = await http.get(uri2);
       final extract2 = jsonDecode(response2.body) as Map<dynamic, dynamic>;
       final decodedBytes = base64Decode(extract2['image']);

@@ -215,6 +215,7 @@ class BeetleNetworking {
       },
       body: jsonEncode(details),
     );
+    print(response.statusCode);
     return jsonDecode(
       utf8.decode(response.bodyBytes),
     );

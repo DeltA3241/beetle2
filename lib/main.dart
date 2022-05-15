@@ -8,6 +8,10 @@ import 'package:provider/provider.dart';
 
 import 'ecommerce/Providers/cart.dart';
 import 'ecommerce/Providers/product_provider.dart';
+import 'ecommerce/Screens/cart_screen.dart';
+import 'ecommerce/Screens/orders_screen.dart';
+import 'ecommerce/Screens/product_detail_screen.dart';
+import 'ecommerce/Screens/search_screen.dart';
 
 void main() {
   runApp(const Beetle());
@@ -53,6 +57,10 @@ class Beetle extends StatelessWidget {
         routes: {
           kMainpages[1]: (context) => const Driver(),
           kMainpages[0]: (context) => LoginPage(),
+          product_detail_screen.route: (ctx) => product_detail_screen(),
+          cart_screen.route: (ctx) => cart_screen(),
+          orders_screen.route: (ctx) => orders_screen(),
+          search_screen.route: (ctx) => search_screen(),
         },
       ),
     );

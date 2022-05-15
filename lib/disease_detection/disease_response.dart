@@ -43,7 +43,7 @@ class _DiseaseResponseState extends State<DiseaseResponse> {
   @override
   Widget build(BuildContext context) {
     bool showProducts = false;
-    final products1 = Provider.of<Products>(context);
+    final products1 = Provider.of<Products>(context, listen: false);
     return Scaffold(
       appBar: kBeetleAppBar,
       body: FutureBuilder<dynamic>(

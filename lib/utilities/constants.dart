@@ -5,7 +5,7 @@ const kBaseUrl = 'https://beetle-auth.azurewebsites.net/auth';
 const kBaseUrlForum =
     'https://beetle-discussion-forum.azurewebsites.net/beetle';
 const String kDiseaseDetectionBaseURL =
-    'http://fe14-121-52-146-244.ngrok.io/analytics/analyse';
+    'http://a480-37-111-137-241.ngrok.io/analytics/analyse';
 
 BorderRadius kBorderRadiusForumCards = BorderRadius.circular(20);
 BoxDecoration kForumCardDecoration = BoxDecoration(

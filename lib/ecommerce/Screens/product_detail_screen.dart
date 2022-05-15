@@ -18,7 +18,7 @@ class product_detail_screen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final carts = Provider.of<cart>(context);
-    final product_id = ModalRoute.of(context)!.settings.arguments as String;
+    final product_id =  id == null ? ModalRoute.of(context)!.settings.arguments as String : id as String;
     final product =
         Provider.of<Products>(context, listen: false).findproduct(product_id);
     return Scaffold(
@@ -27,7 +27,7 @@ class product_detail_screen extends StatelessWidget {
         backgroundColor: kBeetleMainColor,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_outlined),
+          icon: const Icon(Icons.arrow_back_outlined),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -37,7 +37,7 @@ class product_detail_screen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed(search_screen.route);
               },
-              icon: Icon(Icons.search_rounded)),
+              icon: const Icon(Icons.search_rounded)),
           Consumer<cart>(
             builder: (_, c, ch) => Badge(
               child: ch!,
@@ -62,7 +62,7 @@ class product_detail_screen extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: size.height * 0.38),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: kBeetleMainColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(24),
@@ -70,13 +70,13 @@ class product_detail_screen extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 product.descrip,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
                                 ),
@@ -87,31 +87,31 @@ class product_detail_screen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CartCounter(),
+                            CartCounter(product_id),
                             TextButton.icon(
                                 onPressed: null,
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.credit_card,
                                   color: Colors.white,
                                 ),
                                 label: product.iscreditavailable
-                                    ? Text(
+                                    ? const Text(
                                         "Credit/کریڈٹ",
                                         style: TextStyle(color: Colors.white),
                                       )
-                                    : Text(
+                                    : const Text(
                                         "No Credit/کوئی کریڈٹ نہیں",
                                         style: TextStyle(color: Colors.white),
                                       )),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Row(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(right: 15),
+                              margin: const EdgeInsets.only(right: 15),
                               height: 50,
                               width: 58,
                               decoration: BoxDecoration(
@@ -120,7 +120,7 @@ class product_detail_screen extends StatelessWidget {
                                     color: Colors.white,
                                   )),
                               child: IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.shopping_bag,
                                   color: Colors.white,
                                 ),
@@ -153,7 +153,7 @@ class product_detail_screen extends StatelessWidget {
                                           product.imgurl,
                                           product.storeid,
                                           q1: numofitems);
-                                      Scaffold.of(context)
+                                     /* Scaffold.of(context)
                                           .hideCurrentSnackBar();
                                       Scaffold.of(context)
                                           .showSnackBar(SnackBar(
@@ -166,9 +166,9 @@ class product_detail_screen extends StatelessWidget {
                                             carts.remove_singleitem(product.id);
                                           },
                                         ),
-                                      ));
+                                      ));*/
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       "Buy Now/ابھی خریدئے ",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -193,7 +193,7 @@ class product_detail_screen extends StatelessWidget {
                         Text(
                           product.category,
                           style:
-                              TextStyle(color: kBeetleMainColor, fontSize: 20),
+                              const TextStyle(color: kBeetleMainColor, fontSize: 20),
                         ),
                         Text(
                           product.title,
@@ -208,7 +208,7 @@ class product_detail_screen extends StatelessWidget {
                           children: [
                             RichText(
                               text: TextSpan(children: [
-                                TextSpan(
+                                const TextSpan(
                                   text: 'Price\n',
                                   style: TextStyle(
                                       color: kBeetleMainColor, fontSize: 20),
@@ -224,7 +224,7 @@ class product_detail_screen extends StatelessWidget {
                                         )),
                               ]),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 60,
                             ),
                             Expanded(
@@ -255,19 +255,18 @@ class product_detail_screen extends StatelessWidget {
 }
 
 class CartCounter extends StatefulWidget {
-  const CartCounter({Key? key}) : super(key: key);
-
+  final dynamic? id;
+  CartCounter([this.id]);
   @override
   State<CartCounter> createState() => _CartCounterState();
 }
 
 class _CartCounterState extends State<CartCounter> {
-  @override
+
   Widget build(BuildContext context) {
-    final product_id = ModalRoute.of(context)!.settings.arguments as String;
+    final product_id = widget.id == null ? ModalRoute.of(context)!.settings.arguments as String : widget.id as String;
     final product =
         Provider.of<Products>(context, listen: false).findproduct(product_id);
-
     return Row(
       children: [
         buildSizedBox(Icons.remove, () {
