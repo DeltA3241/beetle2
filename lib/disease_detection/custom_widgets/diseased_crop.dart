@@ -4,6 +4,7 @@ import 'package:beetle/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class DiseasedCrop extends StatelessWidget {
   final XFile? image;
@@ -111,20 +112,39 @@ class DiseasedCrop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: RichText(
-            textAlign: TextAlign.start,
-            text: TextSpan(
-                text: 'Prediction:\n',
-                style: kDiseaseTitleTextStyle,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: diseaseDetails['prediction'],
-                    style: kDiseaseDescriptionTextStyle,
-                  ),
-                ]),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: RichText(
+                textAlign: TextAlign.start,
+                text: TextSpan(
+                  text: 'Prediction:\n',
+                  style: kDiseaseTitleTextStyle,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: diseaseDetails['prediction'],
+                      style: kDiseaseDescriptionTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            CircularPercentIndicator(
+              radius: 50,
+              lineWidth: 13.0,
+              animation: true,
+              circularStrokeCap: CircularStrokeCap.round,
+              percent: diseaseDetails['percentage'] / 100,
+              progressColor:
+                  diseaseDetails['percentage'] > 70 ? Colors.green : Colors.red,
+              header: const Text('Confidence / اعتماد'),
+              center: Text(
+                diseaseDetails['percentage'].toString().substring(0, 4),
+              ),
+            )
+          ],
         ),
         const SizedBox(
           height: 5,
